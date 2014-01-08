@@ -1,0 +1,420 @@
+CVCNS Surface Constructor INSTALL Guide
+
+Last Updated: $Date: 2007/05/07 12:51:07 $
+Latest Version: 0.15
+
+The Surface Constructor (surfCon) is an application aiding in the
+production of two-dimensional triangular mesh surface representations
+of the boundary of three-dimensional objects. Input to surfCon is a
+set of images of serial volume slices through an object. The images
+are first mutually aligned if necessary, then points on the boundary
+of the object are identified. The output of surfCon is a mesh
+representation of the surface of the object. The Surface Constructor
+is appropriate for use with partial surfaces, open surfaces, and
+closed surfaces.
+
+
+This INSTALL Guide describes how to install surfCon, and is
+distributed along with surfCon.
+
+__________________________________________________________________________
+
+CONTENTS:
+
+ (1) SOURCE DISTRIBUTION INSTALLATION
+   (A) LINUX
+   (B) WINDOWS
+   (C) MACINTOSH
+
+__________________________________________________________________________
+
+
+__________________________________________________________________________
+
+(1) SOURCE INSTALLATION
+
+The source distribution of surfCon requires compilation to create a
+binary executable file. The process of compilation is slightly
+different on different platforms, so platform specific instructions
+are included below. Note that there are several libraries required on
+all platforms to compile and run surfCon. These libraries are listed
+below.
+
+
+DEPENDENCIES
+
+Listed below are the libraries required by surfCon. Platform specific
+issues related to required libraries are described in the section for
+each platform.
+
+Required Libraries:
+  o X11 (Windows and Linux)
+  o OpenGL
+  o GLUT
+  o libxxf86vm-dev, libxmu-dev, and libxext-dev
+  o libvp, libsr (available from http://eslab.bu.edu)
+
+
+
+(A) LINUX
+
+
+UNPACKING THE ARCHIVE
+
+The file named SurfaceConstructor-src-VERSION.tgz contains the source
+distribution of surfCon for the Linux operating system. Unpack this
+archive by executing the following command:
+
+	tar -zxvf SurfaceConstructor-src-VERSION.tgz
+
+This will create a directory called SurfaceConstructor-src-VERSION
+that contains the source code, a 'demo' directory, an AUTHORS file, a
+COPYING file, a README and this INSTALL file.
+
+
+COMPILATION
+
+The first step to compile the source for surfCon is to modify the
+provided example makefile to be compatible with your system. On many
+systems, this modification will be unnecessary since default locations
+are specified in the example makefile.
+
+So if you think your system is relatively standard, try compiling
+surfCon with no modifications to the makefile by simply running the
+following command in the directory SurfaceConstructor-src-VERSION:
+
+	make
+
+If the compilation process completes successfully, move on to the
+section TESTING THE BINARY EXECUTABLE below.
+
+If there was a problem in the compilation process, try editing the
+makefile to account for possible differences in the locations of
+libraries between the example makefile and your system. Locate
+required libraries and headers on your system, then copy their paths
+into the appropriate place in the makefile.
+
+For example, if the jpeg libraries are not found during the initial
+'make', run the following command:
+
+	locate libjpeg.so
+
+And say the following output was generated:
+
+	/usr/local/lib/libjpeg.so.62
+	/usr/local/lib/libjpeg.so
+
+Then you would want to change the line in the makefile corresponding
+to the location of the jpeg libraries. This is done by using a text
+editor such as emacs to edit the makefile and change the line:
+
+	emacs makefile
+
+Then change the line
+
+	JPEG_LIBS = -L/usr/lib -ljpeg
+
+to
+
+	JPEG_LIBS = -L/usr/local/lib -ljpeg
+
+Then try to recompile. Iterate this process, verifying each library.
+
+
+TESTING THE BINARY EXECUTABLE
+
+Before moving the executable file to a permanent home, it is a good
+idea to test that it works on your system. To run a quick test,
+execute the following command from the directory
+SurfaceConstructor-src-VERSION:
+
+	./surfCon -f demo/image_demo.ds
+
+surfCon should load some images, then present you with a blank
+screen. Right click on the window and choose 'quit' from the menu to
+exit surfCon. If that test was successful, you have a
+compatible system and can proceed to the section titled COPYING THE
+BINARY EXECUTABLE. If this test failed for any reason, consult the
+following section.
+
+
+TROUBLESHOOTING BINARY INSTALLATION
+
+If surfCon didn't run when executed above, it could be because
+surfCon can't find the required libraries. If there was an error
+such as
+
+	./surfCon: error while loading shared libraries:
+	libname: cannot open shared object file: No such file or
+	directory
+
+then this is certainly the case. See the REQUIRED LIBRARY ISSUES
+section below for some ways to fix this.
+
+If instead there was some error such as a segmentation fault, bus
+error or other crash, it is likely that there is either a bug in the
+code or a corruption in the archive. In this case, please send an
+email to <oph@cns.bu.edu> detailing the problem and the system you are
+using.
+
+
+REQUIRED LIBRARY ISSUES
+
+For the linux binaries of surfCon to successfully
+run, the required libraries listed in the DEPENDENCIES section above
+must be installed in the locations against which the surfCon binary
+was compiled. This means that even if the libraries are installed, but
+in a different location than surfCon surfCon is expecting,
+the binary will not execute.
+
+You can determine if the libraries necessary to run surfCon are found
+by surfCon at runtime by executing the command
+
+	ldd surfCon
+
+from inside the directory SurfaceConstructor-src-VERSION. If any of the
+libraries are not found, then they are either not installed or are
+installed in a place other than where surfCon is expecting.
+
+To see if a library "foo" is installed, run the command:
+
+	locate libfoo.so
+
+If there is no output, the library is not installed and you will have
+to do so in order to execute surfCon.
+
+If, on the other hand, the library is installed but in a location
+other that which surfCon expects, a link in the expected location to
+the installed location can solve the problem. To create a symbolic
+link of a library, execute the following command:
+
+	ln -s <FULL_PATH_TO_LIBRARY> <FULL_PATH_TO_LINK>
+
+For example, say the jpeg library is installed in /usr/local/lib
+instead of /usr/lib, then the following command will create a symbolic
+link in /usr/lib for the jpeg library:
+
+	ln -s /usr/local/lib/libjpeg.so /usr/lib/
+
+
+COPYING THE BINARY EXECUTABLE
+
+Once the binary executable is working, the install process is
+completed by copying the executable file named 'surfCon' to a
+location in your executable path. Also, the the README file and demo
+folder should be saved such that reference can be made to them
+later.
+
+On Linux '/usr/local/bin' is a good place to copy the executable
+to. This is done my executing the following command:
+
+	install surfCon /usr/local/bin
+
+surfCon should then be runnable by executing the command
+
+	surfCon [OPTIONS]
+
+Consult the README distributed with the archive for a tutorial on the
+usage of surfCon.
+
+
+
+(B) WINDOWS
+
+
+UNPACKING THE ARCHIVE
+
+The file named SurfaceConstructor-src-VERSION.tgz contains the source
+distribution of surfCon for the Windows operating
+system. Unpack this archive by executing the following command:
+
+	tar -zxvf SurfaceConstructor-src-VERSION.tgz
+
+This will create a directory called SurfaceConstructor-src-VERSION that
+contains the source code, a 'demo' directory, an AUTHORS file, a
+COPYING file, a README and this INSTALL file.
+
+
+COMPILATION
+
+Run the following command in the directory
+SurfaceConstructor-src-VERSION:
+
+	make OS=win
+
+If the compilation process completes successfully, move on to the
+section TESTING THE BINARY EXECUTABLE below.
+
+If there was a problem in the compilation process, make sure all
+required libraries are installed in their proper locations by using
+the cygwin installer program. It is best to install everything when
+cygwin is installed, so if you have control of your system, make sure
+that cygwin is installed with 'All'. However, to check that the
+required libraries are installed, run the cygwin installer available
+at the cygwin website, www.cygwin.com. In the 'Select Packages'
+screen, make sure that the following packages are currently installed:
+
+SECTION		PACKAGE
+X11
+		xorg-* (all packages that begin with xorg)
+Libs
+		jpeg
+		opengl
+		gsl
+		gsl-devel
+
+Then try to recompile. If this still does not work, send an email
+detailing the problem and the specific setup you are using to
+<oph@cns.bu.edu>.
+
+
+TESTING THE BINARY EXECUTABLE
+
+Before moving the executable file to a permanent home, it is a good
+idea to test that it works on your system. To run a quick test,
+execute the following command from the directory
+SurfaceConstructor-src-VERSION:
+
+	./surfCon.exe -f demo/Image_demo.ds
+
+
+surfCon should load some images, then present you with a blank
+screen. Right click on the window and choose 'quit' from the menu to
+exit surfCon. If that test was successful, you have a
+compatible system and can proceed to the section titled COPYING THE
+BINARY EXECUTABLE. If this test failed for any reason, consult the
+following section.
+
+
+TROUBLESHOOTING BINARY INSTALLATION
+
+If surfCon didn't run when executed above, it could be because
+surfCon can't find the required libraries. Please make sure that all
+the required libraries are installed using the cygwin installer. This
+process is described above in the section COMPILATION.
+
+Another possibility is that there was some error in the program such
+as a segmentation fault, bus error or other crash. If this is the
+case, it is likely that there is either a bug in the code or a
+corruption in the archive. Please send an email to <oph@cns.bu.edu>
+detailing the problem and the system you are using.
+
+
+COPYING THE BINARY EXECUTABLE
+
+Once the binary executable is working, the install process is
+completed by copying the executable file named 'surfCon' to a
+location in your executable path. Also, the the README file and demo
+folder should be saved such that reference can be made to them
+later.
+
+On Windows '/usr/local/bin' is a good place to copy the executable
+to. You may have to create this directory if it does not already
+exist. It does no harm to create an existing directory, so create and
+copy the directory by executing the following commands:
+
+	mkdir /usr/local
+	mkdir /usr/local/bin
+	cp -a surfCon.exe /usr/local/bin
+
+surfCon should then be runnable by executing the command
+
+	surfCon [OPTIONS]
+or
+	surfCon.exe [OPTIONS]
+
+these are equivalent.
+
+Consult the README distributed with the archive for a tutorial on the
+usage of surfCon.
+
+
+(C) MACINTOSH 
+
+UNPACKING THE ARCHIVE
+
+The file named surfCon-src-mac-VERSION.tgz contains the source
+distribution of surfCon for the Macintosh operating
+system. Unpack this archive by opening a terminal
+(Applications/Utilities/Terminal) and executing the following command:
+
+	tar -zxvf surfCon-src-mac-VERSION.tgz
+
+This will create a directory called surfCon-src-mac-VERSION that
+contains the source code, a 'demo' directory, an AUTHORS file, a
+COPYING file, a README and this INSTALL file.
+
+INSTALLING FINK
+
+Fink (fink.sourceforge.net) provides a GNU/Linux-like environment on
+the macintosh. Download it and follow the installation
+instructions. 
+
+COMPILATION
+
+Run the following command in the directory surfCon-src-mac-VERSION:
+
+	make OS=mac
+
+If the compilation process failed, send an email detailing the problem
+and the specific setup you are using to <oph@cns.bu.edu>.
+
+
+TESTING THE BINARY EXECUTABLE
+
+Before moving the executable file to a permanent home, it is a good
+idea to test that it works on your system. To run a quick test,
+execute the following command from terminal in the directory
+surfCon-src-mac-VERSION:
+
+	./surfCon -f demo/image_demo.ds
+
+
+surfCon should load some images, then present you with a blank
+screen. Right click on the window and choose 'quit' from the menu to
+exit surfCon. If that test was successful, you have a
+compatible system and can proceed to the section titled COPYING THE
+BINARY EXECUTABLE. If this test failed for any reason, consult the
+following section.
+
+
+COPYING THE BINARY EXECUTABLE
+
+Once the binary executable is working, the install process is
+completed by copying the executable file named 'surfCon' to a
+location in your executable path. Also, the the README file and demo
+folder should be saved such that reference can be made to them
+later.
+
+On Macintosh '$HOME/bin' is a good place to copy the executable
+to. You will to create this directory if it does not already exist. It
+does no harm to create an existing directory, so create the directory
+and and copy the executable by executing the following commands:
+
+	mkdir $HOME/bin
+	cp -a surfCon $HOME/bin
+
+Next, the location '$HOME/bin' must be added to your executable
+path. To do this, use a text editor such as emacs to edit the file
+'.bashrc' in your home directory. Open the file by running the
+command:
+
+	emacs $HOME/.bashrc
+
+Next, add the following line at the end of the file:
+
+	PATH=$PATH:$HOME/bin
+
+
+surfCon should then be runnable by executing the command
+
+	surfCon [OPTIONS]
+
+
+Consult the README distributed with the archive for a tutorial on the
+usage of surfCon.
+
+__________________________________________________________________________
+
+email questions or comments to oliver hinds <oph@cns.bu.edu>
+$Id: INSTALL,v 1.14 2007/05/07 12:51:07 oph Exp $

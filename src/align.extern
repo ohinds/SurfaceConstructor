@@ -1,0 +1,24 @@
+/* the slice images */
+extern char refFilename[];
+extern char movFilename[];
+extern char exportFilename[];
+
+/* filenames to use for saving, loading */
+extern char actionInFilename[];
+extern char actionOutFilename[];
+
+/* msecs between image switches */
+extern int switchPeriod;
+
+/** functions **/
+extern void alignImgInit();
+extern int getAlignDesiredWidth();
+extern int getAlignDesiredHeight();
+extern void alignInit();
+extern void alignDestroy();
+extern int alignRepaintNeeded(long now);
+extern void alignDoOrtho(int w, int h);
+extern void alignDraw();
+extern void alignKeyboard(unsigned char key, int x, int y);
+extern void alignMouse(int button, int state, vector mousePos);
+extern void alignMouseMotion(vector mousePos);

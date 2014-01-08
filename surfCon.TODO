@@ -1,0 +1,355 @@
+TODO
+----
+
+UI
+--
+
+- no longer need the vertices and faces in the ds file, i think.
+
+- add greyscale option
+
+- add transparency on the movable slide placed on top of the target?
+
+- view contour points in 3d (rotation and that stuff), click on points to go to slice for contour edit
+
+- undo
+
+- add in a little more "friction" in the tack placement, i.e., slow
+  down the mouse movements?
+
+- log files
+
+- basis functions for interpolation between contour points
+
+- accelerated libs - os stuff
+
+MESHING
+-------
+
+- eliminate dependence on triangle by capping tubes by adding a fuchs
+  generated surface between the last contour and a vertex added at the
+  centroid of the contour with a z coordinate midway between
+  slices. 
+
+- when meshing open to closed contours, or peices of closed contours
+  to other closed contours, or capping contours, allow direction of
+  tiling on the open contour to reverse at the end of the
+  contour. this will allow linear contours to tile to loops if they
+  open up. similarly, allow this to happen in normal circumstances
+  when tiling two open contours so that tiling of the ends of contours 
+  can be better.
+
+- when handling branches, if there is a postbranch contour for which
+  no vertices in the prebranch contour are closest, segfault will happen
+  due to degenerate transition condition
+
+- problem where closed contours that have been split are treated as
+  open and sometimes cause a weird twisting of the surface
+
+- check out http://www.cs.duke.edu/~edels/TriTop/
+
+- make the datastructures for fuchs compatible with the surf geom toolbox
+  and just better overall
+
+- implement reeb graph construction for correspondence problem
+partially done (facility for manual identification)
+
+
+branching ideas
+---------------
+
+* come up with some sort of transform (fourier?) that represents the
+  shape of a contour. use this shape transform to determine
+  probability that each contour is connected. use thresholding to
+  determine existence of branches and to connect correct segments. use
+  exhaustive search of contour spliting hypotheses when below
+  threshold. shouldn't be too much of a performance hit if there are
+  few branches compared to the number of slices. 
+
+* combined solution to the correspondence and branching problems:
+1) sort contours based on similarity metric to contours on next slice
+2) pair contours in decending order of similarity, remove both
+   contours from further pairing.
+3) below some threshold (fix this idea: thresholds are bad) decide
+   that contours are too dissimilar to be paired. 
+4) parcelate each contour into regions of similarity to other contours
+   and their regions. this will be the hard part. it could be very
+   time consuming to search all possible regions on both contours and
+   compare them. 
+5) sort contour segments by similarity and pair as before
+6) tile
+7) close holes
+
+* when a closed contour is a post branch contour, find transition by
+  closest approach instead of my misclassifications. right now the
+  misclassification method is producing face intersections since the
+  prebranch contour may have vertices after the closeest approach that
+  curve around and should be part of the adjacent open contour. see
+  problematic/closed_post_branch.obj
+
+
+DONE
+----
+
+- implement simple solution for branching problem, at branches, just connect
+  nearest neighbors 
+done 2005-03-18 (see notes for implementation details)
+
+- dynamically load textures to get around memroy problems
+done 2004-11-01
+
+- blank (no textures when too much memory is used)
+not fixed, but greatly decreased (factor of 10) the memory usage 2004-07-23 
+done 2004-11-01
+
+- offset should remain across images in tack mode
+done 2004-07-23
+
+- implement contour breaking
+done 2004-07-23
+
+- implement dragging mouse places contours with timing or spacing
+done 2004-07-23
+
+- crash after load of 368 stria slices (512x512), 
+  seemed to be plenty of memory available. actually ran out of memory.
+done 2004-07-23
+
+- fix the tack selection
+done 2004-07-23
+
+- decrease sensitivity of zoom
+done 2004-07-23
+
+- window resize seems to make app VERY sluggish
+done 2004-07-22
+
+- crash if tack mode entered immediately
+done 2004-07-22
+
+- tack size should remain constant regardless of scale
+done 2004-07-22
+
+- users specifies list of files instead of renaming and copying all images
+done 2004-07-21
+
+- can you make the line segments terminate outside of the marker hole 
+  such that you don't see the line intersection? (actually, maybe this is 
+  a feature and not a bug....)
+done 2004-07-21
+
+- the window scrolling (or panning) is not only controlled by the number 
+   pad keys, but also the standard numeric keys along the top of the 
+   keyboard. i think that there is a way to differentiate so that the 
+   top-row number keys will not cause the frame to pan.
+determined impossible 2004-07-21
+
+ - how do you view the tack contours on adjacent slices? also, maybe you 
+   should allow the user to see the contours when in align mode if they 
+   want to tweak the alignment after carefully tacking out features. so, 
+   for example, if i meticulously tack out layer 4 in two adjacent slides,
+   i could adjust the alignment to ensure that the tacks are aligned,
+   instead of the tissue boundaries which will probably work out to be the
+   most accurately aligned portion of the slice when using eric's
+   'flicker' method on the images alone.
+done 2004-07-21
+
+ - so it looks like you fixed the $Id: surfCon.TODO,v 1.27 2005/10/28 23:18:28 oph Exp $ issue by just deleting the first 
+   character. the trailing dollar sign is still there, and the string is
+   less recognizable as a CVS keyword expansion. you know, you can turn
+   off keyword expansion in CVS by adding the file with the '-kb' flag, as
+   you would if the file were binary. that could be dicey if the user ever
+   wants to check in a 'ds' file. maybe you could do a 'Id' -> 'ID'
+   replacement, since the keyword substitution is case sensitive.
+done 2004-07-21
+
+ - there are some misspellings in the README. in particular, you spell 
+   'movable' as 'moveable', which is think is valid but non-standard.
+done 2004-07-21
+
+ - even though there isn't much to the installation process, people 
+   usually expect an INSTALL file, and a reference to the INSTALL file 
+   from the README.
+done 2004-07-21
+
+ * i think what the README needs is a step-through tutorial and some more 
+   verbose explanations of what the program does.
+done 2004-07-21
+
+ - the most important two function keys, 'A' and 'T' were hard to find in 
+   the README. i was surprised when i first stated the demo and saw a 
+   blank screen. it took me a minute to find out to press the 'A' key. 
+   yes, i should RTFM, but there should also be a way to let the user 
+   start up right away then consult the README as needed. (this is my 
+   anticipation of the schwartzian impatience principle coming into effect 
+   when eric runs this the first time.)
+done 2004-07-21
+
+ - i would take out the './' before 'surfCon' in the README since your 
+   installation instructions say to copy the executable to somewhere in 
+   the path, so it shouldn't be in the cwd. also, you might want to 
+   suggest a standard install location, such as '/usr/local/bin'.
+done 2004-07-21
+
+ - when you introduce the 'dataset', its not clear that this is just a
+   name that you use to describe the organizational unit consisting of a
+   given set of images and the 'ds' file. the README might want to explain
+   what a 'dataset' is and the format of the 'ds' file (including what 
+   stuff it contains).
+done 2004-07-21
+
+ - the explanation of the '-d' flag in the README looks like its missing a 
+   word.
+done 2004-07-21
+
+ - so the 'dataset file' is always located in the 'data directory'? i am
+   confused about your command line example for creating/initializing a
+   dataset.
+done 2004-07-21
+
+ - this might sound silly, but you might want to loose all those '#'
+   characters that are all over the README. check out the NVIDIA 
+   readme, especially the opening header and how it gives the version
+   number, an overview of the README, etc. i think that the NVIDIA readme  
+   is one of the easiest to read (although you won't need all the 
+   appendices, but i like how it looks sparse and is easy to navigate). 
+   make use of whitespace to format.
+done 2004-07-21
+
+ - right now you have Cntl-LEFTCLICK for delete and MIDDLECLICK for
+   selecting endpoints of a segment. i found myself deleting when i meant 
+   to be selecting. these keys seem like they want to be reversed.
+done 2004-07-21
+
+ - so i understand how you are cycling through tack marker and line
+   segment color combinations to keep them all distinct, but it does look 
+   kind of wacky.  :)  do you think that for the first cycle at least the
+   tack markers and line segments could have the same color?
+done 2004-07-21
+
+ - any fine rotation?
+done 2004-07-21
+
+ - there's a typo in the menu for the 'r' key.
+done 2004-07-21
+
+ - i think that the thickness of the tack marker ring could be reduced. 
+   thing were getting cramped when i tried tacking layers 1, 4, and 6.
+done 2004-07-19
+
+ - when you select a tack marker, a bulky blue ring surrounds the marker
+   signifying that its selected. again, this made it difficult to place 
+   the marker precisely. do you think that, instead of the surrounding 
+   blue ring you could, say, make the selected marker white? the blue 
+   surrounding ring was especially weird when the markers themselves were 
+   blue.
+done 2004-07-19
+
+ - the key for placing a 'marker' is given in the README, and i assume 
+   that these are for things like electrode lesions, but this is not 
+   explained in the README.
+done 2004-07-19
+
+- scaling is broken for contours
+done 2004-07-16
+
+- add in some online help, i.e., display keys and commands in menu
+done 2004-07-16
+
+- make README more readable, especially expand upon the role of the
+  "dataset" file, and make the options easier to find. watch terminology: 
+  points, nodes, vertices, positions
+done 2004-07-16
+
+- view contours from adjacent slice(s) using alpha or something (preserve color) allow editing of points only on current slice
+done 2004-07-13
+
+- tell user that NumLock must be on for fine-scale translations in
+  alignment
+done 2004-06-28
+
+- include how to exit in the readme. upon exiting, prompt the user to
+  save the dataset (yes/no/cancel)
+done 2004-06-30
+
+- how to go to next/prev slide in alignment
+done 2004-06-28
+
+- reformat entries in README so that its obvious which key corresponds
+  to which command
+done 2004-06-28
+
+- if 'n' provides an incorrect number of images, prog loads as many as
+  it can, then crashes
+done 2004-06-30
+
+- big bad crash. after starting, i hit 'A'.
+done 2004-06-30
+
+[jonnyreb@alaya surfCon-0.1]$ surfCon -c -f dhtest/dhtest.ds
+loading 0 slices images ...
+GLUT: Warning in surfCon: glutReshapeWindow: non-positive width or
+height not allowed
+X Error of failed request:  BadValue (integer parameter out of range for
+operation)
+  Major opcode of failed request:  12 (X_ConfigureWindow)
+  Value in failed request:  0x0
+  Serial number of failed request:  55
+  Current serial number in output stream:  55
+
+
+- what are the default parameters for '-n' and '-s'?
+done 2004-06-30
+
+- add some "status" messages somewhere in window or command line, like
+  "switching to taking mode" or "line segment selected. click on any
+  position on segment to add in contour vertex".
+done 2004-06-28
+
+- vertex and segment colors
+done 2004-07-08
+
+- make vertex markers larger (annuli?)
+done 2004-07-07
+
+- allow switching of contours being edited
+done 2004-07-08
+
+- windows thing
+done with cygwin 2004-06-28
+
+- batch mode
+done 2004-06-28
+
+- config file
+done 2004-06-28
+
+- support multiple contours on same slice, and some sort of labeling scheme
+done 2004-07-08
+
+- fix $Id: surfCon.TODO,v 1.27 2005/10/28 23:18:28 oph Exp $ strings in "dataset" files
+done 2004-06-28
+
+- allow user to STOP flickering. its hard to know how to rotate when
+  its not clear WHICH slide is being rotated and which is fixed. it
+  would be cool to stop the flicker and allow the user to rotate on
+  the still image. then swap the 'moveable' slide for the 'target'
+  slide.
+done 2004-06-28
+
+- matlab thing to read in points, connect lines
+done 2004-06-25
+
+- adjust contrast/brightness/colormap smoothly in window to aid
+  tacking/aligning?
+done 2005-06-20
+
+- don't write out empty align actions or tack lists
+done 2005-06-20
+
+- make it easier to find and fix self-intersecting contours
+done 2005-06-21
+
+- bug where app starts using all of cpu and being really
+  sluggish after a few seconds of use. 
+done 2005-06-21

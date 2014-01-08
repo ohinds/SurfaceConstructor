@@ -1,0 +1,70 @@
+# notes on the implementation of the surface reconstruction algorithm
+#
+# Oliver Hinds <oph@cns.bu.edu>
+# 2005-02-21
+
+## notes on the fuchs implementation
+* solution to the lacing problem:
+  the fuchs algorithm was modified, adding the capability to
+  reconstruct contours that are unclosed. the modifications were just
+  to search for two paths from the beginning to the end of the fuchs
+  meta-graph. this is the case since the beginning and the end
+  vertices are constrained to be the beginning and the end of the
+  contours if the contour does not wrap. this significantly improves
+  runtime for closed contours. this improved runtime suggests that a
+  significant speedup could be gained by eliminating some clearly
+  incorrect paths. one way to identify these paths is to test the
+  paths for validity (self-interesection) before running the dykstra
+  search.
+
+* solution to the correspondence problem:
+  currently the correspondence problem is solved through manual
+  identification of adjacent contours.  establish correspondence via
+shape description. look at tree structure in ekoule1991triangulation
+or the object matching algorithm in barequet1996piecewise-linear.
+
+* solution to the branching problem:
+** simple conceptual solution:
+   maintain a list of contour pairs to be connected at any point. when
+   connections are one to one, just add pairs of contours. when
+   one to many connections happen, break the prebranch contour into 
+   many pieces, add the pairs. when many to one branches happen, break
+   the postbranch contour into many, then add the pairs. in the case
+   of a one to many followed by a many to one involvling the same
+   contour, this method takes care of the potential overlap by searching
+   the contour pair structure for duplicates of the many to one
+   postbranch contour. if a duplicate is found, the offending contour
+   pair is removed and a many to one branch is handled.
+
+** how to break contours into n subcontours for connection with adjacent
+   contours:
+   break the contours into the best n subcontours by finding regions
+   of contiguous closest contour. define closest contour here as
+   contour with the nearest vertex having min distance. choosing
+   regions can be tricky since it is possible to have disconnected
+   "closest" regions as part of the same desired contour
+   subregion. try to divide into subregions such that the fewest
+   vertices are misclassified using this scheme. since the number of
+   permutations are limited, it seems like a reasonable plan to
+   calculate the best contour for each vertex, then take all the
+   possible transitions and count the number of misclassified vertices
+   in each division into n subregions. pick the one with the fewest
+   misclassified vertices.
+
+** simple way to connect is just to connect the broken contours. this
+   may be  non-optimal, but i think its not wrong.
+
+## conversion from previous .ds file format for image loading only
+
+** replace 
+image format: 0
+with the appropriate number from this list:
+0 DICOM 
+1 MGH,
+2 JPEG
+3 TIFF
+4 PNM
+
+** delete 
+scale: (<s1>,<s2>)
+

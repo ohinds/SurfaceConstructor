@@ -1,0 +1,18 @@
+# todo notes for surfCon application
+# Oliver Hinds <oph@cns.bu.edu> 2006-03-15
+
+* need a better way of judging if a contour is almost closed. 
+
+* better branching soln:
+iteratively look for sub-contour matches. use a correspondence-like
+solution to judge the fitness of a sub-contour match. have to think of
+a way to make the matching work well for both large contour match
+lengths and small ones. 
+
+* use straight skeleton instead of medial axis for capping.
+
+* add vertices when necessary to avoid self-interescting tilings
+
+* reconstruct the nuages examples
+
+* fix coordinate dimension permutation when the slice direction is changed

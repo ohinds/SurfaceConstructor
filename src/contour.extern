@@ -1,0 +1,21 @@
+/* image filename */
+extern char imgFilename[];
+
+/* tackwidth */
+extern int tackWidth;
+extern int tackInnerRadius;
+
+/* filenames to use for saving, loading */
+extern char tackInFilename[];
+extern char tackOutFilename[];
+
+/* quadric for disks */
+extern GLUquadricObj *quad;
+
+extern long tackPlacePeriod;
+
+/* echo new tack parms */
+int echoNewTackCoords;
+char newTackCoordsFilename[MAX_STR_LEN];
+FILE* NEW_TACK_COORDS_FP;
+

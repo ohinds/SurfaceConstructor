@@ -1,0 +1,33 @@
+/* colors */
+
+extern int NUMCOLORS;
+extern int NUMTACKCOLORS;
+extern int NUMLABELCOLORS;
+extern int FIRST_LABEL_COLOR;
+//
+//extern const int RED
+//extern const int BLUE
+//extern const int GREEN
+//extern const int WHITE
+//extern const int PURPLE
+//extern const int GRAY
+//extern const int DARK_GRAY
+//extern const int LIGHT_GRAY
+//extern const int LIGHT_BLUE
+//extern const int BLACK
+//
+///* color vectors for ease of use*/
+//extern const float RED_V[];
+//extern const float BLUE_V[];
+//extern const float GREEN_V[];
+//extern const float WHITE_V[];
+//extern const float BLACK_V[];
+//extern const float GRAY_V[];
+//extern const float DARK_GRAY_V[];
+//extern const float LIGHT_GRAY_V[];
+//extern const float LIGHT_BLUE_V[];
+
+/* array of the color vectors, to be indexed by the color names */
+extern const float *COLORS[];
+
+

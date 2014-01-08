@@ -1,0 +1,38 @@
+#ifndef MAC
+#include<GL/glut.h>
+#else
+#include<GLUT/glut.h>
+#endif
+
+extern int VERBOSE;
+extern int DEBUG;
+
+extern int windowW, windowH;
+extern vector lastPos;
+extern double pixelSize;
+
+extern vector offset;
+extern int offsetIncrement;
+extern double scale;
+extern double scaleIncrement;
+extern double minScale;
+extern double maxScale;
+
+extern int mode;
+extern int gotPreferences;
+
+extern char modeString[MAX_STR_LEN];
+extern char alertString[MAX_STR_LEN];
+
+extern int dynamicTextures;
+
+extern dataset *curDataset;
+extern int curSlice;
+
+extern float maxBrightness;
+extern float minBrightness;
+
+extern float maxContrast;
+extern float minContrast;
+
+extern float resizeMultiplier;
