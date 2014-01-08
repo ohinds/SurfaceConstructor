@@ -23,13 +23,13 @@
 #include"surfCon.h"
 
 /* tack size */
-#define TACK_SIZE 20 /* size for testing for containment, 
-		      * measured in pixels */
+#define TACK_SIZE 20 /* size for testing for containment,
+                      * measured in pixels */
 
 /* point testing */
 int tackContainsPoint(vertex *t, double x, double y);
 
-/** 
+/**
  * tests a tack for inclusion in a rect
  */
 int rectContainsTack(vertex *t, double x0, double y0, double x1, double y1);

@@ -3,7 +3,7 @@
  * application to construct surfaces from serial secions
  * Oliver Hinds <oph@cns.bu.edu> 2004-03-16
  *
- * 
+ *
  *
  *****************************************************************************/
 
@@ -112,7 +112,7 @@ void contourMouseMotion(vector mousePos);
 
 /** util **/
 
-/** 
+/**
  * validate contours by removing empty contours and finding intersecting ones
  */
 int validateContours(dataset *ds);
@@ -120,8 +120,8 @@ int validateContours(dataset *ds);
 /**
  * copy a list of tack lists and apply a set of actions to them
  */
-list *applyActionsToTacks(list *tackLists, list* actions, 
-			  int sliceNum, int dir);
+list *applyActionsToTacks(list *tackLists, list* actions,
+                          int sliceNum, int dir);
 
 /**
  * unselect all tacks in a contour
@@ -154,17 +154,17 @@ void selectAllTacksSlice(list *contours);
 void selectAllTacksDataset(dataset *ds);
 
 /**
- * select the tacks at endpoints of segments that intersect 
+ * select the tacks at endpoints of segments that intersect
  */
 int selectIntersecting(list *contours);
 
 /**
- * select contour intersection points 
+ * select contour intersection points
  */
 int selectContourIntersections(contour *c1, contour *c2);
 
 /**
- * tests for two dimensional segment intersection 
+ * tests for two dimensional segment intersection
  */
 int segmentsIntersect2D(vertex *v11, vertex *v12, vertex *v21, vertex *v22);
 
@@ -174,7 +174,7 @@ int segmentsIntersect2D(vertex *v11, vertex *v12, vertex *v21, vertex *v22);
 void smoothAllContours(double factor);
 
 /**
- * smooth the contour across slices 
+ * smooth the contour across slices
  */
 void smoothContour(int sliceIndex, int contourIndex, double factor);
 
@@ -261,7 +261,7 @@ color getGrayedLineColor(int contourNum);
 color getLabelColor(int labelNum);
 
 /**
- * evalautes a gaussian density with zero mean and unit sd 
+ * evalautes a gaussian density with zero mean and unit sd
  */
 double gaussian(double x);
 

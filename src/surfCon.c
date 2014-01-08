@@ -159,7 +159,7 @@ void init(int argc, char **argv) {
     tempWinWidth = windowW = curDataset->width;
     tempWinHeight = windowH = curDataset->height;
     while(windowW > glutGet(GLUT_SCREEN_WIDTH)
-	  || windowH > glutGet(GLUT_SCREEN_HEIGHT)) {
+          || windowH > glutGet(GLUT_SCREEN_HEIGHT)) {
       scale -= scaleIncrement;
       windowW = scale*tempWinWidth;
       windowH = scale*tempWinHeight;
@@ -167,7 +167,7 @@ void init(int argc, char **argv) {
     glutReshapeWindow(windowW, windowH);
 
     if(DEBUG) fprintf(stdout,"resizing window to %dx%d with scale %g...\n",
-		      windowW,windowH,scale);
+                      windowW,windowH,scale);
   }
 
   /* initialize the mode specific params */
@@ -190,9 +190,9 @@ void datasetInit() {
     }
     else if (datasetInputType == VP_IMAGE) {
       curDataset = newDatasetImages(datasetFilename, dataDir,
-				    datasetImageFormat, dataSliceNames,
-				    dataNumSlices, metersPerPixel.x,
-				    metersPerPixel.y, dataSliceDist);
+                                    datasetImageFormat, dataSliceNames,
+                                    dataNumSlices, metersPerPixel.x,
+                                    metersPerPixel.y, dataSliceDist);
     }
     else if (datasetInputType == VP_NOIMAGES) {
       curDataset = newDatasetContourFile(datasetFilename, sliceContourFilename);
@@ -227,25 +227,25 @@ void modeInit() {
 
   /* call image init for mode */
   switch(mode) {
-  case BLANK:
-    strcpy(modeString,"blank: ");
-    strcpy(alertString,"use the right mouse button for a menu");
-    break;
-  case ALIGN:
-    alignImgInit();
-    alignInit();
-    createAlignMenu();
-    break;
-  case TACK:
-    contourImgInit();
-    contourInit();
-    createContourMenu();
-    break;
-/*   case LACE: */
-/*     laceImgInit(); */
-/*     laceInit(); */
-/*     //createLaceMenu(); */
-/*     break; */
+    case BLANK:
+      strcpy(modeString,"blank: ");
+      strcpy(alertString,"use the right mouse button for a menu");
+      break;
+    case ALIGN:
+      alignImgInit();
+      alignInit();
+      createAlignMenu();
+      break;
+    case TACK:
+      contourImgInit();
+      contourInit();
+      createContourMenu();
+      break;
+      /*   case LACE: */
+      /*     laceImgInit(); */
+      /*     laceInit(); */
+      /*     //createLaceMenu(); */
+      /*     break; */
   }
 }
 
@@ -255,15 +255,15 @@ void modeInit() {
 void modeUninit() {
   /* call image uninit for mode */
   switch(mode) {
-  case ALIGN:
-    alignUninit();
-    break;
-  case TACK:
-    contourUninit();
-    break;
-/*   case LACE: */
-/*     laceUninit(); */
-/*     break; */
+    case ALIGN:
+      alignUninit();
+      break;
+    case TACK:
+      contourUninit();
+      break;
+      /*   case LACE: */
+      /*     laceUninit(); */
+      /*     break; */
   }
 }
 
@@ -275,14 +275,14 @@ void destroy(void) {
 
   /* check for save prompt */
   if(datasetModified) {
-/*     sprintf(alertString,"%s modified, save? [y,n]:", curDataset->filename); */
+    /*     sprintf(alertString,"%s modified, save? [y,n]:", curDataset->filename); */
 
-/*     /\* wait for key press *\/ */
-/*     in = blockForKeyPress(); */
-/*     while(in != 'y' || in != 'n') { */
-/*       sprintf(alertString,"Please answer 'y' or 'n'. %s modified, save? [y,n]:",curDataset->filename); */
-/*       in = blockForKeyPress(); */
-/*     } */
+    /*     /\* wait for key press *\/ */
+    /*     in = blockForKeyPress(); */
+    /*     while(in != 'y' || in != 'n') { */
+    /*       sprintf(alertString,"Please answer 'y' or 'n'. %s modified, save? [y,n]:",curDataset->filename); */
+    /*       in = blockForKeyPress(); */
+    /*     } */
 
     sprintf(alertString,"!provide input on command line!");
     fprintf(stdout,"%s modified, save? [y,n,c]:", curDataset->filename);
@@ -327,24 +327,24 @@ void idle(void) {
 
   /* update based on mode */
   switch(mode) {
-  case BLANK:
-    break;
-  case ALIGN:
-    if(alignRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) {
-      redisplay();
-    }
-    break;
-  case TACK:
-    if(contourRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) {
-      redisplay();
-    }
-    break;
-/*   case LACE: */
-/*     if(laceRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) { */
-/*       redisplay(); */
-/*     } */
-/*     break; */
-   }
+    case BLANK:
+      break;
+    case ALIGN:
+      if(alignRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) {
+        redisplay();
+      }
+      break;
+    case TACK:
+      if(contourRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) {
+        redisplay();
+      }
+      break;
+      /*   case LACE: */
+      /*     if(laceRepaintNeeded(glutGet(GLUT_ELAPSED_TIME))) { */
+      /*       redisplay(); */
+      /*     } */
+      /*     break; */
+  }
 }
 
 /** display related functions **/
@@ -365,14 +365,14 @@ void reshape(int w, int h) {
   /* modify the scale */
   scale*=(w/(float)windowW+h/(float)windowH)/2.0f;
 
-//  float xpos = offset.x/windowW + 0.5; 
-//  float ypos = offset.y/windowH + 0.5; 
-//
-//  /* center the image in the new scale */
-//  offset.x = w*xpos - w/2;
-//  offset.y = h*ypos - h/2;
-//
-//  printf("%lf %lf\n", offset.x, offset.y);
+  //  float xpos = offset.x/windowW + 0.5;
+  //  float ypos = offset.y/windowH + 0.5;
+  //
+  //  /* center the image in the new scale */
+  //  offset.x = w*xpos - w/2;
+  //  offset.y = h*ypos - h/2;
+  //
+  //  printf("%lf %lf\n", offset.x, offset.y);
 
 
   /* store the new window size */
@@ -399,14 +399,14 @@ void draw(void) {
 
   /* draw based on the current mode */
   switch(mode) {
-  case BLANK:
-    break;
-  case ALIGN:
-    alignDraw();
-    break;
-  case TACK:
-    contourDraw();
-    break;
+    case BLANK:
+      break;
+    case ALIGN:
+      alignDraw();
+      break;
+    case TACK:
+      contourDraw();
+      break;
   }
 
   /* draw the info strings */
@@ -461,238 +461,238 @@ void surfAction(int act) {
 
   /* try to handle the action here */
   switch(act) {
-  case 'q':
-    destroy();
-    break;
-  case 'A': /* switch to align mode */
-    if(mode != ALIGN) {
-      modeUninit();
-      mode = ALIGN;
-      modeInit();
-    }
-    redisplay();
-    break;
-  case 'T': /* switch to tack mode */
-    if(mode != TACK) {
-      modeUninit();
-      mode = TACK;
-      modeInit();
-    }
-    redisplay();
-    break;
-  case 's': /* save the dataset */
-    saveDataset(curDataset);
-    redisplay();
-    break;
-  case 'S': /* save the slices raw */
-    prepareDatasetForSave(curDataset);
-    sprintf(filename,"%s.slices",curDataset->filename);
-    slices = buildSlices(curDataset);
-    writeSliceContours(slices,filename);
-
-    if(curDataset->hasLabels == 1) {
-      sprintf(filename,"%s.slices.lab",curDataset->filename);
-      writeSliceContourLabels(slices,filename);
-    }
-    deleteSliceContours(slices);
-    redisplay();
-    break;
-  case 'd': /* write the dataset to stdout */
-    writeDataset(curDataset, stdout);
-    fflush(stdout);
-    break;
-  case 'p': /* print the screen */
-    screenCapture(curSlice);
-    break;
-  case 'i': /* zoom in */
-  case 'I':
-    doScale(scaleIncrement);
-    break;
-  case 'o': /* zoom out */
-  case 'O':
-    doScale(-scaleIncrement);
-    break;
-  case 'm': /* write out a marker list */
-    if(NULL == (fp = fopen(markerFilename,"w"))) {
-      fprintf(stderr, "warning: cannot open file %s to write markers.\n",
-	      markerFilename);
+    case 'q':
+      destroy();
       break;
-    }
-
-    /* write the markers */
-    if(writeMarkers(curDataset,fp)) {
-      fprintf(stdout, "markers written succesfully to %s\n", markerFilename);
-    }
-    else {
-      fprintf(stderr, "warning: write of marker file %s failed.\n",
-	      markerFilename);
-    }
-
-    break;
-  case 'M':
-    //writeObj(triangulateContour((contour*) getListNode((list*) getListNode(curDataset->sliceContourLists,0)->data,0)->data),"/tmp/tritest.obj");
-    break;
-  case '.': case '>': /* increment curSlice */
-    changeSlice(1);
-    break;
-  case ',': case '<': /* decrement curSlice */
-    changeSlice(-1);
-    break;
-  case 'h': /* change slice direction */
-    if(curDataset->vol != NULL) {
-      curDataset->vol->sliceDir++;
-      if(curDataset->vol->sliceDir > SLICE) {
-	curDataset->vol->sliceDir = ROW;
+    case 'A': /* switch to align mode */
+      if(mode != ALIGN) {
+        modeUninit();
+        mode = ALIGN;
+        modeInit();
       }
-      setSliceDirection(curDataset,curDataset->vol->sliceDir);
-      modeUninit();
-      modeInit();
       redisplay();
-    }
-
-    break;
-  case '/': /* guess at contour correspondence */
-    buildCorrespondenceGuess(curDataset->sliceContourLists);
-    redisplay();
-    break;
-  case '?': /* clear all contour correspondence */
-    clearAllCorrespondence(curDataset->sliceContourLists);
-    redisplay();
-    break;
-  case 'z': /* perform tiling */
-    resample = 0;
-    prepareDatasetForSave(curDataset);
-    slices = buildSlices(curDataset);
-    preprocessSliceContours(slices);
-    buildCorrespondenceGuess(curDataset->sliceContourLists);
-    surf = tileSlices(slices);
-    fillBranchedHoles(surf);
-
-    if(surf->manifoldness == SURF_MANIFOLD) {
-      fprintf(stdout,"surface is manifold with %d connected components\n",
-	      listSize(surf->CC));
-    }
-    else {
-      fprintf(stdout,"surface is not manifold\n");
-    }
-
-    surfaceVerts2WorldCoords(surf,curDataset);
-    deleteSliceContours(slices);
-
-    strcpy(filename,curDataset->filename);
-    strcpy(strrchr(filename,'.'),".off");
-    writeOFF(surf,filename);
-
-    if(curDataset->hasLabels == 1) {
-      strcpy(strrchr(filename,'.'),".lab");
-      writeLabelFile(surf,filename);
-    }
-
-    deleteSurface(surf);
-
-    sprintf(alertString,"reconstruction completed");
-    redisplay();
-
-    break;
-  case '[': /* decrease contrast */
-    curDataset->contrastAdjust *= 1-contrastIncr;
-    switch(mode) {
-    case ALIGN:
-      alignImgInit();
       break;
-    case TACK:
-      contourImgInit();
+    case 'T': /* switch to tack mode */
+      if(mode != TACK) {
+        modeUninit();
+        mode = TACK;
+        modeInit();
+      }
+      redisplay();
+      break;
+    case 's': /* save the dataset */
+      saveDataset(curDataset);
+      redisplay();
+      break;
+    case 'S': /* save the slices raw */
+      prepareDatasetForSave(curDataset);
+      sprintf(filename,"%s.slices",curDataset->filename);
+      slices = buildSlices(curDataset);
+      writeSliceContours(slices,filename);
+
+      if(curDataset->hasLabels == 1) {
+        sprintf(filename,"%s.slices.lab",curDataset->filename);
+        writeSliceContourLabels(slices,filename);
+      }
+      deleteSliceContours(slices);
+      redisplay();
+      break;
+    case 'd': /* write the dataset to stdout */
+      writeDataset(curDataset, stdout);
+      fflush(stdout);
+      break;
+    case 'p': /* print the screen */
+      screenCapture(curSlice);
+      break;
+    case 'i': /* zoom in */
+    case 'I':
+      doScale(scaleIncrement);
+      break;
+    case 'o': /* zoom out */
+    case 'O':
+      doScale(-scaleIncrement);
+      break;
+    case 'm': /* write out a marker list */
+      if(NULL == (fp = fopen(markerFilename,"w"))) {
+        fprintf(stderr, "warning: cannot open file %s to write markers.\n",
+                markerFilename);
+        break;
+      }
+
+      /* write the markers */
+      if(writeMarkers(curDataset,fp)) {
+        fprintf(stdout, "markers written succesfully to %s\n", markerFilename);
+      }
+      else {
+        fprintf(stderr, "warning: write of marker file %s failed.\n",
+                markerFilename);
+      }
+
+      break;
+    case 'M':
+      //writeObj(triangulateContour((contour*) getListNode((list*) getListNode(curDataset->sliceContourLists,0)->data,0)->data),"/tmp/tritest.obj");
+      break;
+    case '.': case '>': /* increment curSlice */
+      changeSlice(1);
+      break;
+    case ',': case '<': /* decrement curSlice */
+      changeSlice(-1);
+      break;
+    case 'h': /* change slice direction */
+      if(curDataset->vol != NULL) {
+        curDataset->vol->sliceDir++;
+        if(curDataset->vol->sliceDir > SLICE) {
+          curDataset->vol->sliceDir = ROW;
+        }
+        setSliceDirection(curDataset,curDataset->vol->sliceDir);
+        modeUninit();
+        modeInit();
+        redisplay();
+      }
+
+      break;
+    case '/': /* guess at contour correspondence */
+      buildCorrespondenceGuess(curDataset->sliceContourLists);
+      redisplay();
+      break;
+    case '?': /* clear all contour correspondence */
+      clearAllCorrespondence(curDataset->sliceContourLists);
+      redisplay();
+      break;
+    case 'z': /* perform tiling */
+      resample = 0;
+      prepareDatasetForSave(curDataset);
+      slices = buildSlices(curDataset);
+      preprocessSliceContours(slices);
+      buildCorrespondenceGuess(curDataset->sliceContourLists);
+      surf = tileSlices(slices);
+      fillBranchedHoles(surf);
+
+      if(surf->manifoldness == SURF_MANIFOLD) {
+        fprintf(stdout,"surface is manifold with %d connected components\n",
+                listSize(surf->CC));
+      }
+      else {
+        fprintf(stdout,"surface is not manifold\n");
+      }
+
+      surfaceVerts2WorldCoords(surf,curDataset);
+      deleteSliceContours(slices);
+
+      strcpy(filename,curDataset->filename);
+      strcpy(strrchr(filename,'.'),".off");
+      writeOFF(surf,filename);
+
+      if(curDataset->hasLabels == 1) {
+        strcpy(strrchr(filename,'.'),".lab");
+        writeLabelFile(surf,filename);
+      }
+
+      deleteSurface(surf);
+
+      sprintf(alertString,"reconstruction completed");
+      redisplay();
+
+      break;
+    case '[': /* decrease contrast */
+      curDataset->contrastAdjust *= 1-contrastIncr;
+      switch(mode) {
+        case ALIGN:
+          alignImgInit();
+          break;
+        case TACK:
+          contourImgInit();
+          break;
+        default:
+          break;
+      }
+      redisplay();
+      break;
+    case ']': /* increase contrast */
+      curDataset->contrastAdjust *= 1+contrastIncr;
+      switch(mode) {
+        case ALIGN:
+          alignImgInit();
+          break;
+        case TACK:
+          contourImgInit();
+          break;
+        default:
+          break;
+      }
+      redisplay();
+      break;
+    case ';': /* decrease brightness */
+      curDataset->brightnessAdjust -= brightnessIncr;
+      switch(mode) {
+        case ALIGN:
+          alignImgInit();
+          break;
+        case TACK:
+          contourImgInit();
+          break;
+        default:
+          break;
+      }
+      redisplay();
+      break;
+    case '\'': /* increase brightness */
+      curDataset->brightnessAdjust += brightnessIncr;
+      switch(mode) {
+        case ALIGN:
+          alignImgInit();
+          break;
+        case TACK:
+          contourImgInit();
+          break;
+        default:
+          break;
+      }
+      redisplay();
+      break;
+      /* motion of image using numeric keypad */
+    case '1': /* down and left */
+      doOffset(-1/scale*offsetIncrement, -1/scale*offsetIncrement);
+      break;
+    case '2': /* down */
+      doOffset(0.0, -1/scale*offsetIncrement);
+      break;
+    case '3': /* down and right */
+      doOffset(1/scale*offsetIncrement, -1/scale*offsetIncrement);
+      break;
+    case '4': /* left */
+      doOffset(-1/scale*offsetIncrement, 0.0);
+      break;
+    case '6': /* right */
+      doOffset(1/scale*offsetIncrement, 0.0);
+      break;
+    case '7': /* up and left  */
+      doOffset(-1/scale*offsetIncrement, 1/scale*offsetIncrement);
+      break;
+    case '8': /* up */
+      doOffset(0.0, 1/scale*offsetIncrement);
+      break;
+    case '9': /* up and right */
+      doOffset(1/scale*offsetIncrement, 1/scale*offsetIncrement);
       break;
     default:
-      break;
-    }
-    redisplay();
-    break;
-  case ']': /* increase contrast */
-    curDataset->contrastAdjust *= 1+contrastIncr;
-    switch(mode) {
-    case ALIGN:
-      alignImgInit();
-      break;
-    case TACK:
-      contourImgInit();
-      break;
-    default:
-      break;
-    }
-    redisplay();
-    break;
-  case ';': /* decrease brightness */
-    curDataset->brightnessAdjust -= brightnessIncr;
-    switch(mode) {
-    case ALIGN:
-      alignImgInit();
-      break;
-    case TACK:
-      contourImgInit();
-      break;
-    default:
-      break;
-    }
-    redisplay();
-    break;
-  case '\'': /* increase brightness */
-    curDataset->brightnessAdjust += brightnessIncr;
-    switch(mode) {
-    case ALIGN:
-      alignImgInit();
-      break;
-    case TACK:
-      contourImgInit();
-      break;
-    default:
-      break;
-    }
-    redisplay();
-    break;
-    /* motion of image using numeric keypad */
-  case '1': /* down and left */
-    doOffset(-1/scale*offsetIncrement, -1/scale*offsetIncrement);
-    break;
-  case '2': /* down */
-    doOffset(0.0, -1/scale*offsetIncrement);
-    break;
-  case '3': /* down and right */
-    doOffset(1/scale*offsetIncrement, -1/scale*offsetIncrement);
-    break;
-  case '4': /* left */
-    doOffset(-1/scale*offsetIncrement, 0.0);
-    break;
-  case '6': /* right */
-    doOffset(1/scale*offsetIncrement, 0.0);
-    break;
-  case '7': /* up and left  */
-    doOffset(-1/scale*offsetIncrement, 1/scale*offsetIncrement);
-    break;
-  case '8': /* up */
-    doOffset(0.0, 1/scale*offsetIncrement);
-    break;
-  case '9': /* up and right */
-    doOffset(1/scale*offsetIncrement, 1/scale*offsetIncrement);
-    break;
-  default:
-    handled = FALSE;
+      handled = FALSE;
   }
 
   /* send the key along */
   if(!handled) {
     switch(mode) {
-    case BLANK:
-      break;
-    case ALIGN:
-      alignAction(act);
-      break;
-    case TACK:
-      contourAction(act);
-      break;
-/*     case LACE: */
-/*       laceAction(act); */
-/*       break; */
+      case BLANK:
+        break;
+      case ALIGN:
+        alignAction(act);
+        break;
+      case TACK:
+        contourAction(act);
+        break;
+        /*     case LACE: */
+        /*       laceAction(act); */
+        /*       break; */
     }
   }
 }
@@ -747,17 +747,17 @@ void mouse(int button, int state, int x, int y) {
   sprintf(coordString,"(%0.3f,%0.3f,%0.3f)",mousePos.x,mousePos.y,mousePos.z);
 
   switch(mode) {
-  case BLANK:
-    break;
-  case ALIGN:
-    alignMouse(button, state, mousePos);
-    break;
-  case TACK:
-    contourMouse(button, state, mousePos);
-    break;
-/*   case LACE: */
-/*     laceMouse(button, state, x, y); */
-/*     break; */
+    case BLANK:
+      break;
+    case ALIGN:
+      alignMouse(button, state, mousePos);
+      break;
+    case TACK:
+      contourMouse(button, state, mousePos);
+      break;
+      /*   case LACE: */
+      /*     laceMouse(button, state, x, y); */
+      /*     break; */
   }
 }
 
@@ -778,17 +778,17 @@ void mouseMotion(int x, int y) {
   sprintf(coordString,"(%0.3f,%0.3f,%0.3f)",mousePos.x,mousePos.y,mousePos.z);
 
   switch(mode) {
-  case BLANK:
-    break;
-  case ALIGN:
-    alignMouseMotion(mousePos);
-    break;
-  case TACK:
-    contourMouseMotion(mousePos);
-    break;
-/*   case LACE: */
-/*     laceMouseMotion(x,y); */
-/*     break; */
+    case BLANK:
+      break;
+    case ALIGN:
+      alignMouseMotion(mousePos);
+      break;
+    case TACK:
+      contourMouseMotion(mousePos);
+      break;
+      /*   case LACE: */
+      /*     laceMouseMotion(x,y); */
+      /*     break; */
   }
 
   redisplay();
@@ -818,8 +818,8 @@ void mousePassiveMotion(int x, int y) {
  */
 void CALLBACK error(GLenum errCode) {
   /*
-  const GLubyte *errStr = gluErrorString(errCode);
-  fprintf(stderr, "fatal error: %s\n", errStr);
+    const GLubyte *errStr = gluErrorString(errCode);
+    fprintf(stderr, "fatal error: %s\n", errStr);
   */
   exit(0);
 }
@@ -830,10 +830,10 @@ void CALLBACK error(GLenum errCode) {
  * change the current slice number
  */
 void changeSlice(int dir) {
-    curSlice+=dir;
-    modeUninit();
-    modeInit();
-    redisplay();
+  curSlice+=dir;
+  modeUninit();
+  modeInit();
+  redisplay();
 }
 
 /**
@@ -910,15 +910,15 @@ void drawString(GLint x, GLint y, char* s, const GLfloat *color) {
  */
 void parseArgs(int argc, char **argv) {
   int opt, option_index = 0, i,
-    missingRequired = FALSE,
-    sliceContourSpecified = FALSE,
-    datasetSpecified = FALSE,
-    imageFormatSpecified = FALSE,
-    volumeFilenameSpecified = FALSE,
-    slicefileFilenameSpecified = FALSE,
-    dirSpecified = FALSE,
-    numImagesSpecified = FALSE,
-    pixSizeSpecified = FALSE;
+      missingRequired = FALSE,
+      sliceContourSpecified = FALSE,
+      datasetSpecified = FALSE,
+      imageFormatSpecified = FALSE,
+      volumeFilenameSpecified = FALSE,
+      slicefileFilenameSpecified = FALSE,
+      dirSpecified = FALSE,
+      numImagesSpecified = FALSE;
+
   FILE *fp;
 
   static struct option long_options[] = {
@@ -953,7 +953,7 @@ void parseArgs(int argc, char **argv) {
   /* loop through input arguments */
   while(1) {
     opt = getopt_long (argc, argv, "cf:C:e:i:v:l:z:td:b:w:h:n:s:m:M:X:S:FVQDh?",
-		       long_options, &option_index);
+                       long_options, &option_index);
 
     if(opt == -1)
       break;
@@ -969,110 +969,108 @@ void parseArgs(int argc, char **argv) {
     }
 
     switch(opt) {
-    case 'c':
-      createDataset = TRUE;
-      break;
-    case 'f':
-      strcpy(datasetFilename,optarg);
-      datasetSpecified = TRUE;
-      break;
-    case 'C':
-      strcpy(sliceContourFilename,optarg);
-      sliceContourSpecified = TRUE;
-      datasetInputType = VP_NOIMAGES;
-      break;
-    case 'e':
-      strcpy(newTackCoordsFilename,optarg);
-      if(NULL == (NEW_TACK_COORDS_FP = fopen(newTackCoordsFilename,"w+"))) {
-	NEW_TACK_COORDS_FP = stdout;
-      }
-      echoNewTackCoords = TRUE;
-      break;
-    case 'i':
-      /* find the format */
-      if(!(strcmp(optarg,"jpeg") && strcmp(optarg,"jpg")
-	   && strcmp(optarg,"JPEG") && strcmp(optarg,"JPG"))) {
-	datasetImageFormat = JPEG;
-	imageFormatSpecified = TRUE;
-      }
-      else if(!(strcmp(optarg,"pnm") && strcmp(optarg,"PNM")
-		&& strcmp(optarg,"ppm") && strcmp(optarg,"PPM"))) {
-	datasetImageFormat = PNM;
-	imageFormatSpecified = TRUE;
-      }
-      else {
-	fprintf(stderr,"invalid image format, '%s'\n",optarg);
-      }
-      break;
-    case 'v':
-      strcpy(volumeFilename,optarg);
-      volumeFilenameSpecified = TRUE;
-      datasetInputType = VP_VOLUME;
-      break;
-    case 'l':
-      strcpy(slicefileFilename,optarg);
-      slicefileFilenameSpecified = TRUE;
-      datasetInputType = VP_IMAGE;
-      break;
-    case 'z':
-      strcpy(sliceposFilename,optarg);
-      break;
-    case 'd':
-      strcpy(dataDir,optarg);
-      dirSpecified = TRUE;
-      break;
-    case 'b':
-      strcpy(dataBasename,optarg);
-      break;
-    case 'n':
-      dataNumSlices = atoi(optarg);
-      numImagesSpecified = TRUE;
-      break;
-    case 's':
-      sscanf(optarg,"%lf,%lf,%lf",&metersPerPixel.x,&metersPerPixel.y,
-	     &dataSliceDist);
-
-      pixSizeSpecified = TRUE;
-      break;
-    case 't':
-      dynamicTextures = FALSE;
-      break;
-    case 'm':
-      if(!strcmp(optarg,"align")) {
-	mode = ALIGN;
-      }
-      else if(!strcmp(optarg,"tack")) {
-	mode = TACK;
-      }
-      else {
-	fprintf(stderr,"warning: mode %s unrecognized\n",optarg);
-      }
-      break;
-    case 'M':
-      minSliceInd = atoi(optarg);
-      break;
-    case 'X':
-      maxSliceInd = atoi(optarg);
-      break;
-    case 'S':
-      scale = atof(optarg);
-      break;
-    case 'F':
-      fullScreen = 1;
-      break;
-    case 'V':
-      VERBOSE = 1;
-      break;
-    case 'Q':
-      VERBOSE = 0;
-      break;
-    case 'D':
-      DEBUG = 1;
-      break;
-    case 'H': case '?':
-      printUsage();
-      exit(EXIT_SUCCESS);
-      break;
+      case 'c':
+        createDataset = TRUE;
+        break;
+      case 'f':
+        strcpy(datasetFilename,optarg);
+        datasetSpecified = TRUE;
+        break;
+      case 'C':
+        strcpy(sliceContourFilename,optarg);
+        sliceContourSpecified = TRUE;
+        datasetInputType = VP_NOIMAGES;
+        break;
+      case 'e':
+        strcpy(newTackCoordsFilename,optarg);
+        if(NULL == (NEW_TACK_COORDS_FP = fopen(newTackCoordsFilename,"w+"))) {
+          NEW_TACK_COORDS_FP = stdout;
+        }
+        echoNewTackCoords = TRUE;
+        break;
+      case 'i':
+        /* find the format */
+        if(!(strcmp(optarg,"jpeg") && strcmp(optarg,"jpg")
+             && strcmp(optarg,"JPEG") && strcmp(optarg,"JPG"))) {
+          datasetImageFormat = JPEG;
+          imageFormatSpecified = TRUE;
+        }
+        else if(!(strcmp(optarg,"pnm") && strcmp(optarg,"PNM")
+                  && strcmp(optarg,"ppm") && strcmp(optarg,"PPM"))) {
+          datasetImageFormat = PNM;
+          imageFormatSpecified = TRUE;
+        }
+        else {
+          fprintf(stderr,"invalid image format, '%s'\n",optarg);
+        }
+        break;
+      case 'v':
+        strcpy(volumeFilename,optarg);
+        volumeFilenameSpecified = TRUE;
+        datasetInputType = VP_VOLUME;
+        break;
+      case 'l':
+        strcpy(slicefileFilename,optarg);
+        slicefileFilenameSpecified = TRUE;
+        datasetInputType = VP_IMAGE;
+        break;
+      case 'z':
+        strcpy(sliceposFilename,optarg);
+        break;
+      case 'd':
+        strcpy(dataDir,optarg);
+        dirSpecified = TRUE;
+        break;
+      case 'b':
+        strcpy(dataBasename,optarg);
+        break;
+      case 'n':
+        dataNumSlices = atoi(optarg);
+        numImagesSpecified = TRUE;
+        break;
+      case 's':
+        sscanf(optarg,"%lf,%lf,%lf",&metersPerPixel.x,&metersPerPixel.y,
+               &dataSliceDist);
+        break;
+      case 't':
+        dynamicTextures = FALSE;
+        break;
+      case 'm':
+        if(!strcmp(optarg,"align")) {
+          mode = ALIGN;
+        }
+        else if(!strcmp(optarg,"tack")) {
+          mode = TACK;
+        }
+        else {
+          fprintf(stderr,"warning: mode %s unrecognized\n",optarg);
+        }
+        break;
+      case 'M':
+        minSliceInd = atoi(optarg);
+        break;
+      case 'X':
+        maxSliceInd = atoi(optarg);
+        break;
+      case 'S':
+        scale = atof(optarg);
+        break;
+      case 'F':
+        fullScreen = 1;
+        break;
+      case 'V':
+        VERBOSE = 1;
+        break;
+      case 'Q':
+        VERBOSE = 0;
+        break;
+      case 'D':
+        DEBUG = 1;
+        break;
+      case 'H': case '?':
+        printUsage();
+        exit(EXIT_SUCCESS);
+        break;
     }
   }
 
@@ -1085,33 +1083,33 @@ void parseArgs(int argc, char **argv) {
     }
     if(datasetInputType == VP_NOIMAGES) {
       if(sliceContourSpecified != TRUE) {
-	fprintf(stderr,"error: slice contour filename is a required argument during non-image dataset creation.\n");
-	missingRequired = TRUE;
+        fprintf(stderr,"error: slice contour filename is a required argument during non-image dataset creation.\n");
+        missingRequired = TRUE;
       }
     }
     else if(datasetInputType == VP_VOLUME) {
       if(volumeFilenameSpecified != TRUE) {
-	fprintf(stderr,"error: volume filename is a required argument during volume dataset creation.\n");
-	missingRequired = TRUE;
+        fprintf(stderr,"error: volume filename is a required argument during volume dataset creation.\n");
+        missingRequired = TRUE;
       }
     }
     else {
       if(dirSpecified != TRUE) {
-	fprintf(stderr,"error: dataset directory is a required argument during image dataset creation.\n");
-	missingRequired = TRUE;
+        fprintf(stderr,"error: dataset directory is a required argument during image dataset creation.\n");
+        missingRequired = TRUE;
       }
       if(imageFormatSpecified != TRUE) {
-	fprintf(stderr,"error: slice image format is a required argument during image dataset creation.\n");
-	missingRequired = TRUE;
+        fprintf(stderr,"error: slice image format is a required argument during image dataset creation.\n");
+        missingRequired = TRUE;
       }
       if(numImagesSpecified != TRUE) {
-	fprintf(stderr,"error: number of slice images is a required argument during image dataset creation.\n");
-	missingRequired = TRUE;
+        fprintf(stderr,"error: number of slice images is a required argument during image dataset creation.\n");
+        missingRequired = TRUE;
       }
-//      if(pixSizeSpecified != TRUE) {
-//	fprintf(stderr,"error: size is a required argument during image dataset creation.\n");
-//	missingRequired = TRUE;
-//      }
+      //      if(pixSizeSpecified != TRUE) {
+      //  fprintf(stderr,"error: size is a required argument during image dataset creation.\n");
+      //  missingRequired = TRUE;
+      //      }
     }
 
     /* check for missing required args */
@@ -1124,22 +1122,22 @@ void parseArgs(int argc, char **argv) {
     if(datasetInputType == VP_IMAGE && slicefileFilenameSpecified) {
       /* try to open the file */
       if(NULL == (fp = fopen(slicefileFilename,"r"))) {
-	fprintf(stderr,"error: couldn't open file %s containing slice filenames.\n",slicefileFilename);
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"error: couldn't open file %s containing slice filenames.\n",slicefileFilename);
+        exit(EXIT_FAILURE);
       }
 
       /* read the filenames */
       if(!(dataSliceNames = readStrings(fp,dataNumSlices))) {
-	fprintf(stderr,"error: missing one or more slice filenames.\n");
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"error: missing one or more slice filenames.\n");
+        exit(EXIT_FAILURE);
       }
     }
     else if(datasetInputType != VP_NOIMAGES) { /* read from the command line */
       /* check that there are the required number of image names */
       if(argc - optind != dataNumSlices) {
-	fprintf(stderr,"error: missing one or more slice filenames.\n");
-	printUsage();
-	exit(EXIT_FAILURE);
+        fprintf(stderr,"error: missing one or more slice filenames.\n");
+        printUsage();
+        exit(EXIT_FAILURE);
       }
 
       /* allocate space for the filenames */
@@ -1147,11 +1145,11 @@ void parseArgs(int argc, char **argv) {
 
       /* read the image names */
       for(i=0; optind < argc && i < dataNumSlices; i++, optind++) {
-	/* allocate one name */
-	dataSliceNames[i] = (char*) malloc(MAX_STR_LEN*sizeof(char));
+        /* allocate one name */
+        dataSliceNames[i] = (char*) malloc(MAX_STR_LEN*sizeof(char));
 
-	/* read the name from the args */
-	strcpy(dataSliceNames[i],argv[optind]);
+        /* read the name from the args */
+        strcpy(dataSliceNames[i],argv[optind]);
       }
     }
   }

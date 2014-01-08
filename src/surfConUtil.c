@@ -1,6 +1,6 @@
 /*****************************************************************************
  * surfConUtil.c is the source file for utility functions for the surface
- * recon 
+ * recon
  * Oliver Hinds <oph@cns.bu.edu> 2004-02-04
  *
  *
@@ -11,17 +11,17 @@
 
 #ifdef GL_TEXTURE_RECTANGLE_EXT
 #ifndef GL_TEXTURE_RECTANGLE_NV
-#define GL_TEXTURE_RECTANGLE_NV GL_TEXTURE_RECTANGLE_EXT 
+#define GL_TEXTURE_RECTANGLE_NV GL_TEXTURE_RECTANGLE_EXT
 #endif
 #else
 #ifdef GL_TEXTURE_RECTANGLE_NV
 #ifndef GL_TEXTURE_RECTANGLE_EXT
 #define GL_TEXTURE_RECTANGLE_EXT GL_TEXTURE_RECTANGLE_NV
-#endif 
+#endif
 //#else
 //#define GL_TEXTURE_RECTANGLE_NV GL_TEXTURE_2D
 //#define GL_TEXTURE_RECTANGLE_EXT GL_TEXTURE_2D
-#endif 
+#endif
 #endif
 
 
@@ -108,21 +108,21 @@ void permuteCoordsFromSliceDir(list *slices, int sliceDir) {
     for(j = getListNode(slice,0); j; j = (listNode*) j->next) {
       verts = ((contour*) j->data)->vertices;
       for(k = getListNode(verts,0); k; k = (listNode*) k->next) {
-	v = (vertex*) k->data;
-	tmp[0] = v->x;
-	tmp[1] = v->y;
-	tmp[2] = v->z;
-	for(d = 0; d < 3; d++) {
-	  if(dims[d] == ROW) {
-	    v->x = tmp[d];
-	  }
-	  else if(dims[d] == COL) {
-	    v->y = tmp[d];
-	  }
-	  if(dims[d] == SLICE) {
-	    v->z = tmp[d];
-	  }
-	}
+        v = (vertex*) k->data;
+        tmp[0] = v->x;
+        tmp[1] = v->y;
+        tmp[2] = v->z;
+        for(d = 0; d < 3; d++) {
+          if(dims[d] == ROW) {
+            v->x = tmp[d];
+          }
+          else if(dims[d] == COL) {
+            v->y = tmp[d];
+          }
+          if(dims[d] == SLICE) {
+            v->z = tmp[d];
+          }
+        }
       }
     }
   }
@@ -202,15 +202,15 @@ quadri getWindowCoordsQ(quadri q) {
 vector getWorldCoordsV(vector v) {
   if(DEBUG) {
     fprintf(stderr,"vox2wrld=\n%02.3f %02.3f %02.3f %02.3f\n%02.3f %02.3f %02.3f %02.3f \n%02.3f %02.3f %02.3f %02.3f \n%02.3f %02.3f %02.3f %02.3f\n",
-	    curDataset->vol->vox2wrld[0][0], curDataset->vol->vox2wrld[0][1], 
-	    curDataset->vol->vox2wrld[0][2], curDataset->vol->vox2wrld[0][3],
-	    curDataset->vol->vox2wrld[1][0], curDataset->vol->vox2wrld[1][1], 
-	    curDataset->vol->vox2wrld[1][2], curDataset->vol->vox2wrld[1][3],
-	    curDataset->vol->vox2wrld[2][0], curDataset->vol->vox2wrld[2][1], 
-	    curDataset->vol->vox2wrld[2][2], curDataset->vol->vox2wrld[2][3],
-	    curDataset->vol->vox2wrld[3][0], curDataset->vol->vox2wrld[3][1], 
-	    curDataset->vol->vox2wrld[3][2], curDataset->vol->vox2wrld[3][3]
-	    );
+            curDataset->vol->vox2wrld[0][0], curDataset->vol->vox2wrld[0][1],
+            curDataset->vol->vox2wrld[0][2], curDataset->vol->vox2wrld[0][3],
+            curDataset->vol->vox2wrld[1][0], curDataset->vol->vox2wrld[1][1],
+            curDataset->vol->vox2wrld[1][2], curDataset->vol->vox2wrld[1][3],
+            curDataset->vol->vox2wrld[2][0], curDataset->vol->vox2wrld[2][1],
+            curDataset->vol->vox2wrld[2][2], curDataset->vol->vox2wrld[2][3],
+            curDataset->vol->vox2wrld[3][0], curDataset->vol->vox2wrld[3][1],
+            curDataset->vol->vox2wrld[3][2], curDataset->vol->vox2wrld[3][3]
+            );
 
     fprintf(stderr,"window coords v= [%02.3f %02.3f %02.3f]\n", v.x, v.y, v.z);
   }
@@ -218,7 +218,7 @@ vector getWorldCoordsV(vector v) {
   matrixMult4byV(curDataset->vol->vox2wrld,v,&v);
 
   if(DEBUG) {
-    fprintf(stderr,"world coords v= [%02.3f %02.3f %02.3f]\n", v.x, v.y, v.z);    
+    fprintf(stderr,"world coords v= [%02.3f %02.3f %02.3f]\n", v.x, v.y, v.z);
   }
   return v;
 }
@@ -262,7 +262,7 @@ list *cloneSliceContours(dataset *ds) {
   if(ds == NULL || listSize(ds->sliceContourLists) < 1) {
     return NULL;
   }
-  
+
   slices = ds->sliceContourLists;
 
   /* iterate over slices, transforming the contours in each */
@@ -283,16 +283,16 @@ list *cloneSliceContours(dataset *ds) {
 
       /* fixes the contour adjacency info */
       for(k = getListNode(lastNewSlice,0); k; k = (listNode*) k->next) {
-	setListNodeData(findInListLN(((contour*)k->data)->adjacentContours,cont),newCont);
+        setListNodeData(findInListLN(((contour*)k->data)->adjacentContours,cont),newCont);
       }
 
       /* transform the vertices */
       for(k = getListNode(newCont->vertices,0); k; k = (listNode*) k->next) {
-	v = (vertex*) k->data;
+        v = (vertex*) k->data;
 
-	if(shuffleCoords) {
-	  matrixMult4byVert(CoordShuffle,*v,v);
-	}
+        if(shuffleCoords) {
+          matrixMult4byVert(CoordShuffle,*v,v);
+        }
       }
     }
   }
@@ -324,7 +324,7 @@ void doScale(double s) {
   if(scale > maxScale || scale < minScale) {
     scale = oldScale;
   }
-  else {   
+  else {
     ds.x = -curDataset->width*s/2.0;
     ds.y = -curDataset->height*s/2.0;
 
@@ -357,26 +357,26 @@ int writeMarkers(dataset *ds, FILE* fp) {
     posFile = fopen(ds->positionFilename,"r");
     if(!posFile) { /* error opening the file */
       fprintf(stderr,"error: can't open file %s for reading\n",
-	      ds->positionFilename);
+              ds->positionFilename);
       return 0;
     }
   }
-  
+
   /* write each marker */
   for(i=getListNode(ds->sliceMarkerLists,0), ind=0; i; i = (listNode*) i->next, ind++) {
     if(posFile) {
       fscanf(posFile, "%lf", &slicePos);
     }
     else {
-      slicePos = ind*ds->sliceDist;  
+      slicePos = ind*ds->sliceDist;
     }
 
     curSlice = (list*) i->data;
     /* print each contour on the slice */
     for(j=getListNode(curSlice,0); j; j = (listNode*) j->next) {
       t = (vertex*) j->data;
-      fprintf(fp, "%lf %lf %lf\n", t->x/ds->pixelsPerMM.x, 
-	      t->y/ds->pixelsPerMM.y, slicePos);
+      fprintf(fp, "%lf %lf %lf\n", t->x/ds->pixelsPerMM.x,
+              t->y/ds->pixelsPerMM.y, slicePos);
     }
   }
 
@@ -384,8 +384,8 @@ int writeMarkers(dataset *ds, FILE* fp) {
   fclose(fp);
 
   /*  if(positionsFromFile) {
-    fclose(posFile);
-  }
+      fclose(posFile);
+      }
   */
   return 1;
 }
@@ -410,16 +410,16 @@ list *buildSlices(dataset *ds) {
     permuteCoordsFromSliceDir(sl,ds->vol->sliceDir);
   }
   else { // convert pixels into mm
-    
+
     for(i = getListNode(sl,0); i; i = (listNode*) i->next) {
       slice = (list*) i->data;
       for(j = getListNode(slice,0); j; j = (listNode*) j->next) {
         verts = ((contour*) j->data)->vertices;
         for(k = getListNode(verts,0); k; k = (listNode*) k->next) {
-	  v = (vertex*) k->data;
-	  v->x/=ds->pixelsPerMM.x;
-	  v->y/=ds->pixelsPerMM.y;
-	}
+          v = (vertex*) k->data;
+          v->x/=ds->pixelsPerMM.x;
+          v->y/=ds->pixelsPerMM.y;
+        }
       }
     }
   }
@@ -444,10 +444,10 @@ int surfaceVerts2WorldCoords(surface *surf, dataset *ds) {
     towrld[2][2] = 1/ds->pixelsPerMM.z;
     towrld[3][3] = 1.0f;
 
-    towrld[0][1] = towrld[0][2] = towrld[0][3] = 
-      towrld[1][0] = towrld[1][2] = towrld[1][3] =
-      towrld[2][0] = towrld[2][1] = towrld[2][3] = 
-      towrld[3][0] = towrld[3][1] = towrld[3][2] = 0.0f;
+    towrld[0][1] = towrld[0][2] = towrld[0][3] =
+        towrld[1][0] = towrld[1][2] = towrld[1][3] =
+        towrld[2][0] = towrld[2][1] = towrld[2][3] =
+        towrld[3][0] = towrld[3][1] = towrld[3][2] = 0.0f;
     transformSurfaceVertices(surf,towrld);
   }
 
@@ -465,7 +465,7 @@ int getTextureMethod() {
   /* set the texture method if we haven't yet */
   if(textureMethod == -1) {
     ext = (char*) glGetString(GL_EXTENSIONS);
-    
+
     /* check the extensions string for the texture rectangle extensions */
     if(strstr(ext,"GL_EXT_texture_rectangle")) {
       textureMethod = GL_TEXTURE_RECTANGLE_EXT;
@@ -490,4 +490,3 @@ int getTextureMethod() {
  * comment-column: 0
  * End:
  ********************************************************************/
-

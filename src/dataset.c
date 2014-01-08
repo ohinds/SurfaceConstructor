@@ -77,7 +77,7 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
   }
 
   /* allocate the dataset */
-  dataset *ds = (dataset*) malloc(sizeof(dataset));  
+  dataset *ds = (dataset*) malloc(sizeof(dataset));
 
   ds->imageSource = VP_NOIMAGES;
   ds->imageFormat = INVALID_FORMAT;
@@ -90,7 +90,7 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
   unCVS(ds->versionString);
 
   setSliceDirection(ds,SLICE);
-  
+
   ds->numSlices = listSize(slices);
 
   newDatasetCommon(ds);
@@ -104,7 +104,7 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
   maxbounds.x = -SR_BIG;
   maxbounds.y = -SR_BIG;
   minbounds.z = SR_BIG;
-  for(i = getListNode(slices,0), slind = 0; i; 
+  for(i = getListNode(slices,0), slind = 0; i;
       i = (listNode*) i->next, slind++) {
     sl = (list*) i->data;
 
@@ -122,15 +122,15 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
       cont->closed = ((contour*) j->data)->closed;
 
       for(k = getListNode(cv,0); k; k = (listNode*) k->next) {
-	v = (vertex*) k->data;
-	addTack(cList, v->x, v->y, slind);
+        v = (vertex*) k->data;
+        addTack(cList, v->x, v->y, slind);
 
-	/* check bounds */
-	if(v->x < minbounds.x) minbounds.x = v->x;
-	if(v->x > maxbounds.x) maxbounds.x = v->x;
-	if(v->y < minbounds.y) minbounds.y = v->y;
-	if(v->y > maxbounds.y) maxbounds.y = v->y;
-	if(v->z < minbounds.z) minbounds.z = v->z;
+        /* check bounds */
+        if(v->x < minbounds.x) minbounds.x = v->x;
+        if(v->x > maxbounds.x) maxbounds.x = v->x;
+        if(v->y < minbounds.y) minbounds.y = v->y;
+        if(v->y > maxbounds.y) maxbounds.y = v->y;
+        if(v->z < minbounds.z) minbounds.z = v->z;
       }
     }
   }
@@ -141,7 +141,7 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
   h = maxbounds.y-minbounds.y;
 
   double ar = w/h;
-  
+
   if(ar > 1.0) {
     windowH = windowW/ar;
   }
@@ -152,7 +152,7 @@ dataset *newDatasetContourFile(char *filename, char *sliceFilename) {
   ds->pixelsPerMM.x = 1.0;
   ds->pixelsPerMM.y = 1.0;
   ds->pixelsPerMM.z = 1.0;
-  
+
   // set a good initial scale and offset
   scale = 0.9*max(windowW,windowH)/max(w,h);
 
@@ -192,7 +192,7 @@ dataset *newDatasetVolume(char *filename, char *volumeFilename) {
 
   /* set and initial scale (number of pixels in a unit of world coords) */
   setSliceDirection(ds,SLICE);
-  
+
   ds->firstSliceZ = 0.0;
 
   /* perform common init functions */
@@ -208,9 +208,9 @@ dataset *newDatasetVolume(char *filename, char *volumeFilename) {
  * creates a dataset
  */
 dataset *newDatasetImages(char *filename, char *directory,
-			  int imageFormat, char **sliceFilenames,
-			  int numSlices, double xDist,
-			  double yDist, double sliceDist) {
+                          int imageFormat, char **sliceFilenames,
+                          int numSlices, double xDist,
+                          double yDist, double sliceDist) {
   int i;
   vector aveSize;
 
@@ -289,15 +289,14 @@ dataset *readDataset(char *filename) {
   FILE *fp;
   dataset *ds;
   int numAlignedSlices,numTackedSlices,numLabels,numMarkedSlices,
-    numVertices,numFaces,winW,winH,index,curSl,curCt;
+      numVertices,numFaces,winW,winH,index,curSl,curCt;
   char str[MAX_STR_LEN] = "", trash[MAX_STR_LEN] = "";
   int i,v1,v2,v3;
   double a;
   vector x;
-  list *l, *cList = NULL, *slice;
+  list *l, *slice;
   listNode *ln;
   contour *cont, *adjCont;
-  vertex *t;
   vertex *v;
   face *f;
   label *lab;
@@ -375,19 +374,19 @@ dataset *readDataset(char *filename) {
     while(strcmp(str,"end")) {
       /* add the action based on type */
       if(!strcmp(str,"rotation:")) {
-	/* get the properties of the rotation */
-	fscanf(fp, " (%lf,%lf) %lf\n", &x.x, &x.y, &a);
-	if(!feof(fp)) addRotationAction(l, x, a);
+        /* get the properties of the rotation */
+        fscanf(fp, " (%lf,%lf) %lf\n", &x.x, &x.y, &a);
+        if(!feof(fp)) addRotationAction(l, x, a);
       }
       else if(!strcmp(str,"translation:")) {
-	/* read the properties of the translation */
-	fscanf(fp," (%lf,%lf)\n", &x.x, &x.y);
-	if(!feof(fp)) addTranslationAction(l, x);
+        /* read the properties of the translation */
+        fscanf(fp," (%lf,%lf)\n", &x.x, &x.y);
+        if(!feof(fp)) addTranslationAction(l, x);
       }
       else if(!strcmp(str,"scale:")) {
-	/* read the properties of the scale action */
-	fscanf(fp," (%lf,%lf)\n", &x.x, &x.y);
-	if(!feof(fp)) addScaleAction(l, x);
+        /* read the properties of the scale action */
+        fscanf(fp," (%lf,%lf)\n", &x.x, &x.y);
+        if(!feof(fp)) addScaleAction(l, x);
       }
 
       /* read the id for this line */
@@ -418,34 +417,32 @@ dataset *readDataset(char *filename) {
     while(strcmp(str,"end")) {
       /* test for begin of new contour */
       if(!strcmp(str,"begin")) {
-	fscanf(fp, " %s", str);
-	/* backward compatibility */
-	if(strcmp("contour",str)) {
-	  fscanf(fp, " contour\n");
-	}
-	else {
-	  strcpy(str,"open");
-	  fscanf(fp, "\n");
-	}
+        fscanf(fp, " %s", str);
+        /* backward compatibility */
+        if(strcmp("contour",str)) {
+          fscanf(fp, " contour\n");
+        }
+        else {
+          strcpy(str,"open");
+          fscanf(fp, "\n");
+        }
 
-	/* allocate the contour */
-	cont = createContour();
-	enqueue(l,cont);
-	cList = cont->vertices;
+        /* allocate the contour */
+        cont = createContour();
+        enqueue(l,cont);
 
-	/* see if its closed or not */
-	if(!strcmp(str,"closed")) {
-	  cont->closed = CLOSED;
-	}
+        /* see if its closed or not */
+        if(!strcmp(str,"closed")) {
+          cont->closed = CLOSED;
+        }
 
-	/* see if its empty */
-	fscanf(fp, "%s", str);
-	if(!strcmp(str,"end")) break;
+        /* see if its empty */
+        fscanf(fp, "%s", str);
+        if(!strcmp(str,"end")) break;
       }
 
       /* read vars for one tack and add it */
       fscanf(fp, " (%lf,%lf)\n", &x.x, &x.y);
-      if(!feof(fp)) t = addTack(cList, x.x, x.y, i);
 
       /* read the id for this line */
       fscanf(fp, "%s", str);
@@ -474,32 +471,32 @@ dataset *readDataset(char *filename) {
 
       /* until no more contours */
       while(!strcmp(str,"contour")) {
-	ln = getListNode((list*) getListNode(ds->sliceContourLists,
-					     curSl)->data,curCt);
-	if(ln == NULL) {
-	  fprintf(stderr,"dataset.c: can't access contour %d on slice %d for adjacency\n", curCt, curSl);
+        ln = getListNode((list*) getListNode(ds->sliceContourLists,
+                                             curSl)->data,curCt);
+        if(ln == NULL) {
+          fprintf(stderr,"dataset.c: can't access contour %d on slice %d for adjacency\n", curCt, curSl);
 
-	  /* skip this one */
-	  readLine(fp,str);
-	  fscanf(fp, "%s", str);
-	  continue;
-	}
-	cont = (contour*) ln->data;
+          /* skip this one */
+          readLine(fp,str);
+          fscanf(fp, "%s", str);
+          continue;
+        }
+        cont = (contour*) ln->data;
 
-	/* read the adjacent contour indices on the next contour */
-	fscanf(fp,"%d",&index);
-	while(index != -1) {
-	  /* add the contour in the next slice to the adjacency list, if its not already there */
-	  adjCont = getListNode((list*) getListNode(ds->sliceContourLists,curSl+1)->data,index)->data;
-	  if(NULL == findInListLN(cont->adjacentContours,adjCont)) {
-	    enqueue(cont->adjacentContours,adjCont);
-	  }
+        /* read the adjacent contour indices on the next contour */
+        fscanf(fp,"%d",&index);
+        while(index != -1) {
+          /* add the contour in the next slice to the adjacency list, if its not already there */
+          adjCont = getListNode((list*) getListNode(ds->sliceContourLists,curSl+1)->data,index)->data;
+          if(NULL == findInListLN(cont->adjacentContours,adjCont)) {
+            enqueue(cont->adjacentContours,adjCont);
+          }
 
-	  /* read the next index */
-	  fscanf(fp,"%d",&index);
-	}
-	curCt++;
-	fscanf(fp, "%s", str);
+          /* read the next index */
+          fscanf(fp,"%d",&index);
+        }
+        curCt++;
+        fscanf(fp, "%s", str);
       }
       curSl++;
     }
@@ -529,11 +526,11 @@ dataset *readDataset(char *filename) {
 
       /* search for the vertex in the slice contours */
       if(lab->slice >= listSize(ds->sliceContourLists)
-	 || lab->cont >= listSize(slice = (list*) getListNode(ds->sliceContourLists,lab->slice)->data)
-	 || lab->vert >= listSize((cont = (contour*)getListNode(slice,lab->cont)->data)->vertices)
-	 || (v = (vertex*) getListNode(cont->vertices,lab->vert)->data) == NULL) {
-	free(lab);
-	continue;
+         || lab->cont >= listSize(slice = (list*) getListNode(ds->sliceContourLists,lab->slice)->data)
+         || lab->vert >= listSize((cont = (contour*)getListNode(slice,lab->cont)->data)->vertices)
+         || (v = (vertex*) getListNode(cont->vertices,lab->vert)->data) == NULL) {
+        free(lab);
+        continue;
       }
 
       lab->sliceLink = slice;
@@ -571,7 +568,6 @@ dataset *readDataset(char *filename) {
     while(strcmp(str,"end")) {
       /* read vars for one marker and add it */
       fscanf(fp, " (%lf,%lf)\n", &x.x, &x.y);
-      if(!feof(fp)) t = addTack(l, x.x, x.y, i);
 
       /* read the id for this line */
       fscanf(fp, "%s", str);
@@ -736,8 +732,8 @@ int readDatasetVolume(FILE *fp, dataset *ds) {
 
   strcpy(ds->vol->filename,str);
 
-  fprintf(stdout,"pixelsPerMM: (%f,%f,%f)\n", 
-	  ds->pixelsPerMM.y, ds->pixelsPerMM.x, ds->pixelsPerMM.z);
+  fprintf(stdout,"pixelsPerMM: (%f,%f,%f)\n",
+          ds->pixelsPerMM.y, ds->pixelsPerMM.x, ds->pixelsPerMM.z);
 
   /* determine if there is an external slice position file or a slice direction */
   fscanf(fp, "%s", str);
@@ -758,7 +754,7 @@ int readDatasetVolume(FILE *fp, dataset *ds) {
   }
   else if(!strcmp(str,"first")) {
     fscanf(fp, " slice Z: %lf\norigin: ", &ds->firstSliceZ);
-    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   /* now get the origin BE CAREFUL, THE STRING 'origin:' WAS ALREADY READ! */
@@ -772,7 +768,7 @@ int readDatasetVolume(FILE *fp, dataset *ds) {
   /* validate the version */
   if(!checkVersionString(ds->versionString)) {
     fprintf(stderr,"error: dataset in file %s is the wrong version. exit\n",
-	    ds->filename);
+            ds->filename);
     return FAILURE;
   }
 
@@ -802,9 +798,9 @@ int readDatasetImage(FILE *fp, dataset *ds) {
   /* read the pixel to world space coordinate transform */
   skipComments(fp,'#');
   fscanf(fp,"pixels per mm: (%lf,%lf)",
-	 &ds->pixelsPerMM.x, &ds->pixelsPerMM.y);
+         &ds->pixelsPerMM.x, &ds->pixelsPerMM.y);
   fprintf(stdout, "pixels per mm: (%lf,%lf)\n",
-	  ds->pixelsPerMM.x, ds->pixelsPerMM.y);
+          ds->pixelsPerMM.x, ds->pixelsPerMM.y);
 
   skipComments(fp,'#');
   fscanf(fp, "mm between slices: %lf\n", &ds->sliceDist);
@@ -822,7 +818,7 @@ int readDatasetImage(FILE *fp, dataset *ds) {
   }
   else if(!strcmp(str,"first")) {
     fscanf(fp, " slice Z: %lf\norigin: ", &ds->firstSliceZ);
-    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   /* now get the origin BE CAREFUL, THE STRING 'origin:' WAS ALREADY READ! */
@@ -836,7 +832,7 @@ int readDatasetImage(FILE *fp, dataset *ds) {
   /* validate the version */
   if(!checkVersionString(ds->versionString)) {
     fprintf(stderr,"error: dataset in file %s is the wrong version. exit\n",
-	    ds->filename);
+            ds->filename);
     return FAILURE;
   }
 
@@ -871,9 +867,9 @@ int readDatasetNoImages(FILE *fp, dataset *ds) {
   /* read the pixel to world space coordinate transform */
   skipComments(fp,'#');
   fscanf(fp,"pixels per mm: (%lf,%lf)",
-	 &ds->pixelsPerMM.x, &ds->pixelsPerMM.y);
+         &ds->pixelsPerMM.x, &ds->pixelsPerMM.y);
   fprintf(stdout, "pixels per mm: (%lf,%lf)\n",
-	  ds->pixelsPerMM.x, ds->pixelsPerMM.y);
+          ds->pixelsPerMM.x, ds->pixelsPerMM.y);
 
   skipComments(fp,'#');
   fscanf(fp, "mm between slices: %lf\n", &ds->sliceDist);
@@ -891,7 +887,7 @@ int readDatasetNoImages(FILE *fp, dataset *ds) {
   }
   else if(!strcmp(str,"first")) {
     fscanf(fp, " slice Z: %lf\norigin: ", &ds->firstSliceZ);
-    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(stdout, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   /* now get the origin BE CAREFUL, THE STRING 'origin:' WAS ALREADY READ! */
@@ -905,7 +901,7 @@ int readDatasetNoImages(FILE *fp, dataset *ds) {
   /* validate the version */
   if(!checkVersionString(ds->versionString)) {
     fprintf(stderr,"error: dataset in file %s is the wrong version. exit\n",
-	    ds->filename);
+            ds->filename);
     return FAILURE;
   }
 
@@ -924,7 +920,7 @@ int loadImages(dataset *ds) {
   int i;
 
   /* validate the input */
-  if(ds == NULL || ds->imageSource == INVALID_INPUT_TYPE 
+  if(ds == NULL || ds->imageSource == INVALID_INPUT_TYPE
      || ds->imageSource == VP_NOIMAGES) {
     return 0;
   }
@@ -939,7 +935,7 @@ int loadImages(dataset *ds) {
 
     /* load the texture */
     ds->sliceTextures[i] = loadTexture(ds, imgFilename, ds->imageFormat,
-				       &ds->slices[i]);
+                                       &ds->slices[i]);
 
     /* if we are only loading as necessary, unload now */
     if(dynamicTextures) {
@@ -969,7 +965,7 @@ image *loadImage(dataset *ds, int n) {
   char filename[MAX_STR_LEN];
 
   /* validate the input */
-  if(ds == NULL || n < 0 || n >= ds->numSlices 
+  if(ds == NULL || n < 0 || n >= ds->numSlices
      || ds->imageSource == VP_NOIMAGES
      || ds->imageSource == INVALID_INPUT_TYPE) {
     return createBlankImage();
@@ -1007,7 +1003,7 @@ GLuint loadTexture(dataset *ds, char *filename, int format, image *outputIm) {
   image *im = NULL;
   //printf("%d\n", ds->imageSource);
   /* validate the input */
-  if(ds == NULL 
+  if(ds == NULL
      || ds->imageSource == VP_NOIMAGES
      || ds->imageSource == INVALID_INPUT_TYPE) {
     im = createBlankImage();
@@ -1024,21 +1020,21 @@ GLuint loadTexture(dataset *ds, char *filename, int format, image *outputIm) {
 
     /* load the file */
     switch(format) {
-    case DICOM:
-      im = readDICOM(filename);
-      break;
-    case JPEG:
-      im = readJPEG(filename);
-      break;
-    case TIFF:
-      im = readTIFF(filename);
-      break;
-    case PNM:
-      im = readPNM(filename);
-      break;
-    default:
-      im = NULL;
-      break;
+      case DICOM:
+        im = readDICOM(filename);
+        break;
+      case JPEG:
+        im = readJPEG(filename);
+        break;
+      case TIFF:
+        im = readTIFF(filename);
+        break;
+      case PNM:
+        im = readPNM(filename);
+        break;
+      default:
+        im = NULL;
+        break;
     }
 
     /* validate the image load */
@@ -1127,8 +1123,8 @@ GLuint imageTexture(dataset *ds, image *im) {
 
   /* image the texture */
   glTexImage2D(textureMethod, 0, im->numChannels, im->width+im->padX,
-	       im->height+im->padY, 0, format, GL_UNSIGNED_SHORT,
-	       im->pixels);
+               im->height+im->padY, 0, format, GL_UNSIGNED_SHORT,
+               im->pixels);
 
   return tex;
 }
@@ -1137,9 +1133,9 @@ GLuint imageTexture(dataset *ds, image *im) {
  * unloads a texture to free up memory
  */
 void unloadTexture(int i) {
-/*   if(VERBOSE) { */
-/*     fprintf(stdout,"unloading texture %d ... ", tex); */
-/*   } */  
+  /*   if(VERBOSE) { */
+  /*     fprintf(stdout,"unloading texture %d ... ", tex); */
+  /*   } */
   if(curDataset == NULL || i < 0 || i > curDataset->numSlices) {
     return;
   }
@@ -1147,9 +1143,9 @@ void unloadTexture(int i) {
   glDeleteTextures(1,(GLuint*)&curDataset->sliceTextures[i]);
   curDataset->sliceTextures[i] = 0;
 
-/*   if(VERBOSE) { */
-/*     fprintf(stdout,"done\n"); */
-/*   } */
+  /*   if(VERBOSE) { */
+  /*     fprintf(stdout,"done\n"); */
+  /*   } */
 }
 
 /*
@@ -1186,30 +1182,30 @@ int getSliceFilename(dataset *ds, int sliceNum, char *imgFilename) {
   }
 
 
-/*   /\* add leading zeros to filename *\/ */
-/*   for(i = numDigitsInFileNumber; i > 1; i--) { */
-/*     if(sliceNum < pow(10,i-1)) strcat(imgFilename,"0"); */
-/*   } */
+  /*   /\* add leading zeros to filename *\/ */
+  /*   for(i = numDigitsInFileNumber; i > 1; i--) { */
+  /*     if(sliceNum < pow(10,i-1)) strcat(imgFilename,"0"); */
+  /*   } */
 
-/*   /\* file number *\/ */
-/*   strcat(imgFilename,itoa(sliceNum)); */
+  /*   /\* file number *\/ */
+  /*   strcat(imgFilename,itoa(sliceNum)); */
 
   /* file format testing and reading */
-/*   switch(ds->sliceFormat) { */
-/*   case JPEG: */
-/*     strcat(imgFilename,".jpg"); */
-/*     break; */
-/*   default: */
-/*     fprintf(stderr,"error: file format not supported\n"); */
-/*     return FALSE; */
-/*     break; */
-/*   } */
+  /*   switch(ds->sliceFormat) { */
+  /*   case JPEG: */
+  /*     strcat(imgFilename,".jpg"); */
+  /*     break; */
+  /*   default: */
+  /*     fprintf(stderr,"error: file format not supported\n"); */
+  /*     return FALSE; */
+  /*     break; */
+  /*   } */
 
   return TRUE;
 }
 
 /**
- * prepares the dataset structure for saving, updates the 
+ * prepares the dataset structure for saving, updates the
  * hasLables, hasMarkers, hasAdjacent flags are set
  */
 void prepareDatasetForSave(dataset *ds) {
@@ -1226,22 +1222,22 @@ void prepareDatasetForSave(dataset *ds) {
       cont = (contour*) c->data;
       verts = ((contour*)c->data)->vertices;
       if(listSize(cont->vertices) < 1) { // delete the contour
-	markForDeletion(c);
-	deleteContour(cont);
-	c->data = NULL;
+        markForDeletion(c);
+        deleteContour(cont);
+        c->data = NULL;
       }
     }
     deleteMarkedNodes(slice);
   }
 
 
-  // adjacent 
+  // adjacent
   for(s = getListNode(ds->sliceContourLists,0); s; s = (listNode*) s->next) {
     slice = (list*) s->data;
     for(c = getListNode(slice,0); c; c = (listNode*) c->next) {
       if(listSize(((contour*)c->data)->adjacentContours) > 0) {
-	ds->hasAdjacency = 1;
-	break;
+        ds->hasAdjacency = 1;
+        break;
       }
     }
   }
@@ -1251,8 +1247,8 @@ void prepareDatasetForSave(dataset *ds) {
     slice = (list*) s->data;
     for(c = getListNode(slice,0); c; c = (listNode*) c->next) {
       if(listSize(((contour*)c->data)->adjacentContours) > 0) {
-	ds->hasMarkers = 1;
-	break;
+        ds->hasMarkers = 1;
+        break;
       }
     }
   }
@@ -1263,11 +1259,11 @@ void prepareDatasetForSave(dataset *ds) {
     for(c = getListNode(slice,0); c; c = (listNode*) c->next) {
       verts = ((contour*)c->data)->vertices;
       for(v = getListNode(verts,0); v; v= (listNode*) v->next) {
-	
-	if(((vertex*)v->data)->label != -1) {
-	  ds->hasLabels = 1;
-	  break;
-	}
+
+        if(((vertex*)v->data)->label != -1) {
+          ds->hasLabels = 1;
+          break;
+        }
       }
     }
   }
@@ -1296,7 +1292,7 @@ int saveDataset(dataset *ds) {
   /* open the file */
   if(!(fp = fopen(filename,"w+"))) {
     fprintf(stderr,"error: couldn't open file %s for writing. exit\n",
-	    ds->filename);
+            ds->filename);
     return 0;
   }
 
@@ -1334,7 +1330,7 @@ int writeDatasetVolumeHeader(dataset *ds, FILE *fp) {
     fprintf(fp, "position file: %s\n", ds->positionFilename);
   }
   else {
-    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   fprintf(fp, "origin: (%lf,%lf)\n", ds->origin.x, ds->origin.y);
@@ -1360,7 +1356,7 @@ int writeDatasetImageHeader(dataset *ds, FILE *fp) {
 
   /* write the world to pixel space transform */
   fprintf(fp,"pixels per mm: (%lf,%lf)\n",
-	  ds->pixelsPerMM.x, ds->pixelsPerMM.y);
+          ds->pixelsPerMM.x, ds->pixelsPerMM.y);
 
   fprintf(fp, "mm between slices: %g\n", ds->sliceDist);
 
@@ -1369,7 +1365,7 @@ int writeDatasetImageHeader(dataset *ds, FILE *fp) {
     fprintf(fp, "position file: %s\n", ds->positionFilename);
   }
   else {
-    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   fprintf(fp, "origin: (%lf,%lf)\n", ds->origin.x, ds->origin.y);
@@ -1402,7 +1398,7 @@ int writeDatasetNoImagesHeader(dataset *ds, FILE *fp) {
 
   /* write the world to pixel space transform */
   fprintf(fp,"pixels per mm: (%lf,%lf)\n",
-	  ds->pixelsPerMM.x, ds->pixelsPerMM.y);
+          ds->pixelsPerMM.x, ds->pixelsPerMM.y);
 
   fprintf(fp, "mm between slices: %g\n", ds->sliceDist);
 
@@ -1411,7 +1407,7 @@ int writeDatasetNoImagesHeader(dataset *ds, FILE *fp) {
     fprintf(fp, "position file: %s\n", ds->positionFilename);
   }
   else {
-    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);    
+    fprintf(fp, "first slice Z: %lf\n", ds->firstSliceZ);
   }
 
   fprintf(fp, "origin: (%lf,%lf)\n", ds->origin.x, ds->origin.y);
@@ -1516,7 +1512,7 @@ int writeDataset(dataset *ds, FILE* fp) {
 
   fclose(fp);
 
-  /* if the current slice has no contours, make one for tracing 
+  /* if the current slice has no contours, make one for tracing
      (because we just deleted it above in prepareDatasetForSave) */
   if(listSize((list*)getListNode(ds->sliceContourLists,curSlice)->data) < 1) {
     contourInit();
@@ -1551,16 +1547,16 @@ void dumpAlign(dataset *ds, FILE *fp) {
 
       /* write the action on a line */
       switch(a->type) {
-      case ROTATION:
-	fprintf(fp, "rotation: (%lf,%lf) %lf\n",
-		a->rotCenter.x, a->rotCenter.y, a->angle);
-	break;
-      case TRANSLATION:
-	fprintf(fp,"translation: (%lf,%lf)\n", a->trans.x, a->trans.y);
-	break;
-      case SCALE:
-	fprintf(fp,"scale: (%lf,%lf)\n", a->scale.x, a->scale.y);
-	break;
+        case ROTATION:
+          fprintf(fp, "rotation: (%lf,%lf) %lf\n",
+                  a->rotCenter.x, a->rotCenter.y, a->angle);
+          break;
+        case TRANSLATION:
+          fprintf(fp,"translation: (%lf,%lf)\n", a->trans.x, a->trans.y);
+          break;
+        case SCALE:
+          fprintf(fp,"scale: (%lf,%lf)\n", a->scale.x, a->scale.y);
+          break;
       }
     }
     /* print the end action list id */
@@ -1598,24 +1594,24 @@ void dumpContours(dataset *ds, FILE *fp) {
       cont = (contour*)j->data;
 
       /* check for zero length */
-/*       if(listSize(cont->vertices) < 1) { */
-/* 	removeContour(ds,sl,ct); */
-/* 	deleteContour(cont); */
-/* 	continue; */
-/*       } */
+      /*       if(listSize(cont->vertices) < 1) { */
+      /*      removeContour(ds,sl,ct); */
+      /*      deleteContour(cont); */
+      /*      continue; */
+      /*       } */
 
       fprintf(fp, "begin %s contour\n",
-	      (cont->closed == CLOSED) ? "closed" : "open");
+              (cont->closed == CLOSED) ? "closed" : "open");
       /* get the list for this contour */
       cList = cont->vertices;
 
       /* iterate over tacks, write each */
       for(k = getListNode(cList,0); k; k = (listNode*) k->next) {
-	/* get the tack */
-	t = (vertex*) k->data;
+        /* get the tack */
+        t = (vertex*) k->data;
 
-	/* write the tack on a line */
-	fprintf(fp, "tack: (%lf,%lf)\n", t->x, t->y);
+        /* write the tack on a line */
+        fprintf(fp, "tack: (%lf,%lf)\n", t->x, t->y);
       }
     }
     /* print the end list id */
@@ -1650,13 +1646,13 @@ void dumpContourAdjacency(dataset *ds, FILE *fp) {
 
       /* print each index */
       for(k = getListNode(adjList,0); k; k = (listNode*) k->next) {
-	index = findInListI((list*) ((listNode*)i->next)->data, k->data);
-	if(index != FAILURE) {
-	  fprintf(fp, " %d", index);
-	}
-	else {
-	  fprintf(stderr,"couldnt find adjacent contour, %p, %p, %p\n",i,j,k);
-	}
+        index = findInListI((list*) ((listNode*)i->next)->data, k->data);
+        if(index != FAILURE) {
+          fprintf(fp, " %d", index);
+        }
+        else {
+          fprintf(stderr,"couldnt find adjacent contour, %p, %p, %p\n",i,j,k);
+        }
       }
 
       fprintf(fp, " -1\n");
@@ -1676,8 +1672,8 @@ void dumpLabel(dataset *ds, FILE *fp) {
   contour *c;
   vertex *v;
 
-  
-  for(i = getListNode(ds->sliceContourLists,0), slice = 0; 
+
+  for(i = getListNode(ds->sliceContourLists,0), slice = 0;
       i; i = (listNode*) i->next, slice++) {
     /* get the list for this slice */
     l = (list*) i->data;
@@ -1688,19 +1684,19 @@ void dumpLabel(dataset *ds, FILE *fp) {
       if(c->vertices == NULL) continue;
 
       /* iterate over vertices */
-      for(k = getListNode(c->vertices,0), vert = 0; k; 
-	  k = (listNode*) k->next, vert++) {
-	v = (vertex*) k->data;
-	if(v->label != -1) {
-	  numLabels++;
-	}
+      for(k = getListNode(c->vertices,0), vert = 0; k;
+          k = (listNode*) k->next, vert++) {
+        v = (vertex*) k->data;
+        if(v->label != -1) {
+          numLabels++;
+        }
       }
     }
   }
 
   fprintf(fp,"slices labels: %d\n", numLabels);
 
-  for(i = getListNode(ds->sliceContourLists,0), slice = 0; 
+  for(i = getListNode(ds->sliceContourLists,0), slice = 0;
       i; i = (listNode*) i->next, slice++) {
     /* get the list for this slice */
     l = (list*) i->data;
@@ -1711,12 +1707,12 @@ void dumpLabel(dataset *ds, FILE *fp) {
       if(c->vertices == NULL) continue;
 
       /* iterate over vertices */
-      for(k = getListNode(c->vertices,0), vert = 0; k; 
-	  k = (listNode*) k->next, vert++) {
-	v = (vertex*) k->data;
-	if(v->label != -1) {
-	  fprintf(fp,"%d %d %d %d\n",slice, cont, vert, v->label);
-	}
+      for(k = getListNode(c->vertices,0), vert = 0; k;
+          k = (listNode*) k->next, vert++) {
+        v = (vertex*) k->data;
+        if(v->label != -1) {
+          fprintf(fp,"%d %d %d %d\n",slice, cont, vert, v->label);
+        }
       }
     }
   }
@@ -1805,13 +1801,13 @@ void assignBoundaries(dataset *ds) {
 
     /* iterate over contours in a slice */
     for(contNode = getListNode(slice,0); contNode;
-	contNode = (listNode*) contNode->next) {
+        contNode = (listNode*) contNode->next) {
       cont = (contour*) contNode->data;
     }
 
     /* reset all the vertices in this contour to be non-boundary */
     for(vertNode = getListNode(cont->vertices,0); vertNode;
-	vertNode = (listNode*) vertNode->next) {
+        vertNode = (listNode*) vertNode->next) {
       ((vertex*) vertNode)->boundary = FALSE;
     }
 
@@ -1820,8 +1816,8 @@ void assignBoundaries(dataset *ds) {
     if(!cont->closed && listSize(cont->vertices) > 1) {
       ((vertex*)getListNode(cont->vertices,0)->data)->boundary = TRUE;
       ((vertex*)getListNode(cont->vertices,
-			    listSize(cont->vertices)-1)->data)->boundary
-	= TRUE;
+                            listSize(cont->vertices)-1)->data)->boundary
+          = TRUE;
     }
   }
 }
@@ -1860,8 +1856,8 @@ void assignZCoords(dataset *ds) {
 
       /* go through all vertices in vertex list */
       for(k = getListNode(verts,0); k; k = (listNode*) k->next) {
-	/* assign the z coordinate */
-	((vertex*) k->data)->z = z;
+        /* assign the z coordinate */
+        ((vertex*) k->data)->z = z;
       }
     }
   }

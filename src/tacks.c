@@ -14,14 +14,14 @@
 
 /* point testing */
 
-/** 
+/**
  * tests a point for inclusion in a tack
  */
 int tackContainsPoint(vertex *t, double x, double y) {
   return sqrt(pow(t->x - x,2) + pow(t->y - y,2)) < tackWidth/scale;
 }
 
-/** 
+/**
  * tests a tack for inclusion in a rect
  */
 int rectContainsTack(vertex *t, double x0, double y0, double x1, double y1) {
@@ -87,7 +87,7 @@ int getIndexOfTack(list * l, vertex *t) {
   int ind;
 
   /* search list for tack */
-  for(i = getListNode(l,0),ind=0; i; i = (listNode*) i->next,ind++) {    
+  for(i = getListNode(l,0),ind=0; i; i = (listNode*) i->next,ind++) {
     if(i->data == t) {
       return ind;
     }
@@ -152,7 +152,7 @@ vertex *getTackInRect(list *l, double x0, double y0, double x1, double y1) {
     }
   }
 
-  return NULL;  
+  return NULL;
 }
 
 /**
@@ -200,7 +200,7 @@ void deleteTackByPtr(list *l, vertex *t) {
  */
 double tackDistance(vertex *t1, vertex *t2) {
   return sqrt( pow(t2->x - t1->x, 2) +
-	       pow(t2->y - t1->y, 2) );
+               pow(t2->y - t1->y, 2) );
 }
 
 /**

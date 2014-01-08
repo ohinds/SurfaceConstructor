@@ -1,9 +1,9 @@
 /*****************************************************************************
- * actions.c is the source file for a linked list to hold image actions for 
+ * actions.c is the source file for a linked list to hold image actions for
  * the manual alignment application
  * Oliver Hinds <oph@cns.bu.edu> 2004-02-04
  *
- * 
+ *
  *
  *****************************************************************************/
 
@@ -15,10 +15,10 @@
 /**
  * adds a translation action to the action list
  */
-action *addTranslationAction(list *l, vector trans) {  
+action *addTranslationAction(list *l, vector trans) {
   /* add a generic new action */
   action *a = (action*) malloc(sizeof(action));
-  
+
   /* assign specific values for this translation and add it to the list */
   if(a) {
     a->type = TRANSLATION;
@@ -36,7 +36,7 @@ action *addTranslationAction(list *l, vector trans) {
 action *addRotationAction(list *l, vector rotCenter, double angle) {
   /* add a generic new action */
   action *a = (action*) malloc(sizeof(action));
-  
+
   /* assign rotation specific variables */
   if(a) {
     a->type = ROTATION;
@@ -55,7 +55,7 @@ action *addRotationAction(list *l, vector rotCenter, double angle) {
 action *addScaleAction(list *l, vector scale) {
   /* add a generic new action */
   action *a = (action*) malloc(sizeof(action));
-  
+
   /* assign scale specific variables */
   if(a) {
     a->type = SCALE;
@@ -67,8 +67,8 @@ action *addScaleAction(list *l, vector scale) {
   return a;
 }
 
-/** 
- * consoldates adjacent actions of like type 
+/**
+ * consoldates adjacent actions of like type
  */
 void consolidateActions(list *l) {
   int i;
@@ -79,7 +79,7 @@ void consolidateActions(list *l) {
   if(listSize(l) == 0) return;
 
   prevAction = (action*) l->head->data;
-  /* find adjacent actions of the same type */ 
+  /* find adjacent actions of the same type */
   for(i = 1; i < listSize(l); i++) {
     curAction = (action*) getListNode(l,i)->data;
 
@@ -87,38 +87,38 @@ void consolidateActions(list *l) {
     if(prevAction->type == curAction->type) {
       /* different method based on action type */
       if(prevAction->type == ROTATION) {
-	/* make sure the centers of rotation are the same */
-	if(fabs(prevAction->rotCenter.x - curAction->rotCenter.x) > TOL
-	   || fabs(prevAction->rotCenter.y - curAction->rotCenter.y) > TOL){
-	  prevAction = curAction;
-	  continue;
-	}
+        /* make sure the centers of rotation are the same */
+        if(fabs(prevAction->rotCenter.x - curAction->rotCenter.x) > TOL
+           || fabs(prevAction->rotCenter.y - curAction->rotCenter.y) > TOL){
+          prevAction = curAction;
+          continue;
+        }
 
-	/* compose the two rotations */
-	prevAction->angle += curAction->angle;
-	prevAction->angle = fmod(prevAction->angle,360.0);
+        /* compose the two rotations */
+        prevAction->angle += curAction->angle;
+        prevAction->angle = fmod(prevAction->angle,360.0);
 
-	/* delete this action */
-	removeListNode(l,i);
-	i--;
+        /* delete this action */
+        removeListNode(l,i);
+        i--;
       }
       else if(prevAction->type == TRANSLATION) { /* translation */
-	/* add our translation to the prev one */
-	prevAction->trans.x += curAction->trans.x;
-	prevAction->trans.y += curAction->trans.y;
+        /* add our translation to the prev one */
+        prevAction->trans.x += curAction->trans.x;
+        prevAction->trans.y += curAction->trans.y;
 
-	/* delete this action */
-	removeListNode(l,i);
-	i--;
+        /* delete this action */
+        removeListNode(l,i);
+        i--;
       }
       else if(prevAction->type == SCALE) { /* scale */
-	/* add this scale to the previous one */
-	prevAction->scale.x += curAction->scale.x;
-	prevAction->scale.y += curAction->scale.y;
+        /* add this scale to the previous one */
+        prevAction->scale.x += curAction->scale.x;
+        prevAction->scale.y += curAction->scale.y;
 
-	/* delete the action */
-	removeListNode(l,i);
-	i--;
+        /* delete the action */
+        removeListNode(l,i);
+        i--;
       }
     }
     else { /* action was of different type */
@@ -128,7 +128,7 @@ void consolidateActions(list *l) {
 }
 
 /**
- * prints the contents of one node to an io stream 
+ * prints the contents of one node to an io stream
  */
 void printAction(action *a, FILE* str) {
   if(a->type == ROTATION) {

@@ -155,14 +155,14 @@ void contourInit() {
   curDataset->width = imgBuf->width;
   curDataset->height = imgBuf->height;
 
-/*   img.v1.x = -(imgBuf->width *pixelSize/resizeMultiplier); */
-/*   img.v1.y = -(imgBuf->height*pixelSize/resizeMultiplier); */
-/*   img.v2.x =  (imgBuf->width *pixelSize/resizeMultiplier); */
-/*   img.v2.y = -(imgBuf->height*pixelSize/resizeMultiplier); */
-/*   img.v3.x =  (imgBuf->width *pixelSize/resizeMultiplier); */
-/*   img.v3.y =  (imgBuf->height*pixelSize/resizeMultiplier); */
-/*   img.v4.x = -(imgBuf->width *pixelSize/resizeMultiplier); */
-/*   img.v4.y =  (imgBuf->height*pixelSize/resizeMultiplier); */
+  /*   img.v1.x = -(imgBuf->width *pixelSize/resizeMultiplier); */
+  /*   img.v1.y = -(imgBuf->height*pixelSize/resizeMultiplier); */
+  /*   img.v2.x =  (imgBuf->width *pixelSize/resizeMultiplier); */
+  /*   img.v2.y = -(imgBuf->height*pixelSize/resizeMultiplier); */
+  /*   img.v3.x =  (imgBuf->width *pixelSize/resizeMultiplier); */
+  /*   img.v3.y =  (imgBuf->height*pixelSize/resizeMultiplier); */
+  /*   img.v4.x = -(imgBuf->width *pixelSize/resizeMultiplier); */
+  /*   img.v4.y =  (imgBuf->height*pixelSize/resizeMultiplier); */
 
 
   /* apply the actions */
@@ -175,20 +175,20 @@ void contourInit() {
     imgBounds = applyActions(actions,imgBounds);
   }
 
-/*   /\* get the current tack list to apply/modify, create if it doesn't exist *\/ */
-/*   while(NULL == (ln = getListNode(curDataset->sliceTackLists,curSlice))) { */
-/*     cList = newList(LIST); */
-/*     enqueue(curDataset->sliceTackLists, cList); */
-/*   } */
-/*   cList = (list*) ln->data; */
+  /*   /\* get the current tack list to apply/modify, create if it doesn't exist *\/ */
+  /*   while(NULL == (ln = getListNode(curDataset->sliceTackLists,curSlice))) { */
+  /*     cList = newList(LIST); */
+  /*     enqueue(curDataset->sliceTackLists, cList); */
+  /*   } */
+  /*   cList = (list*) ln->data; */
 
-/*   if(listSize(cList) == 0) { */
-/*     tacks = newList(LIST); */
-/*     enqueue(cList,tacks); */
-/*   } */
-/*   else { */
-/*     tacks = (list*) getListNode(cList, 0)->data; */
-/*   } */
+  /*   if(listSize(cList) == 0) { */
+  /*     tacks = newList(LIST); */
+  /*     enqueue(cList,tacks); */
+  /*   } */
+  /*   else { */
+  /*     tacks = (list*) getListNode(cList, 0)->data; */
+  /*   } */
 
   /* get the current contour to modify, create if it doesn't exist */
   while(NULL == (ln = getListNode(curDataset->sliceContourLists,curSlice))) {
@@ -261,7 +261,7 @@ void contourDraw() {
   GLenum textureMethod = getTextureMethod();
   quadri windowCoords;
 
-  windowCoords = getWindowCoordsQ(imgBounds);  
+  windowCoords = getWindowCoordsQ(imgBounds);
 
   if(curDataset->imageSource != VP_NOIMAGES) {
     /* turn on texture mapping */
@@ -312,28 +312,28 @@ void contourDraw() {
 
       /* draw the contour lines, if we need to */
       if(lineView) {
-	glPointSize(pixelSize*tackWidth);
-	glBegin(GL_LINES); {
-	  /* iterate over tacks, drawing lines between each */
-	  prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
-	  for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
-	    t = (vertex*) j->data;
-	    drawLine(prev,t);
-	    prev = t;
-	  }
-	  /* if this is a closed contour with more than 2 tacks,
-	   * draw a line from last to first */
-	  if(j != getListNode(cList,1) && cont->closed == CLOSED) {
-	    drawLine(prev,(vertex*) getListNode(cList,0)->data);
-	  }
-	} glEnd();
+        glPointSize(pixelSize*tackWidth);
+        glBegin(GL_LINES); {
+          /* iterate over tacks, drawing lines between each */
+          prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
+          for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
+            t = (vertex*) j->data;
+            drawLine(prev,t);
+            prev = t;
+          }
+          /* if this is a closed contour with more than 2 tacks,
+           * draw a line from last to first */
+          if(j != getListNode(cList,1) && cont->closed == CLOSED) {
+            drawLine(prev,(vertex*) getListNode(cList,0)->data);
+          }
+        } glEnd();
       }
 
       /* draw the tacks in the contour */
       for(j = getListNode(cList,0); j; j = (listNode*) j->next) {
-	t = (vertex*) j->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) j->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
 
@@ -342,9 +342,9 @@ void contourDraw() {
       glColor3fv(COLORS[GRAYED_LIGHT_ORANGE]);
       l = (list*)getListNode(curDataset->sliceMarkerLists,curSlice-1)->data;
       for(i = getListNode(l,0); i; i = (listNode*) i->next) {
-	t = (vertex*) i->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) i->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
   }
@@ -365,33 +365,33 @@ void contourDraw() {
 
       /* draw the contour lines, if we need to */
       if(lineView) {
-	glPointSize(pixelSize*tackWidth);
-	glBegin(GL_LINES); {
-	  /* iterate over tacks, drawing lines between each */
-	  prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
-	  for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
-	    t = (vertex*) j->data;
-	    drawLine(prev,t);
-	    prev = t;
-	  }
-	  /* if this is a closed contour with more than 2 tacks,
-	   * draw a line from last to first */
-	  if(j != getListNode(cList,1) && cont->closed == CLOSED) {
-	    drawLine(prev,(vertex*) getListNode(cList,0)->data);
-	  }
-	} glEnd();
+        glPointSize(pixelSize*tackWidth);
+        glBegin(GL_LINES); {
+          /* iterate over tacks, drawing lines between each */
+          prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
+          for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
+            t = (vertex*) j->data;
+            drawLine(prev,t);
+            prev = t;
+          }
+          /* if this is a closed contour with more than 2 tacks,
+           * draw a line from last to first */
+          if(j != getListNode(cList,1) && cont->closed == CLOSED) {
+            drawLine(prev,(vertex*) getListNode(cList,0)->data);
+          }
+        } glEnd();
       }
 
       /* set the color if this is an adjacent contour */
       if(listContains(adjList,cont)) {
-	glColor3fv(getTackColor(ind));
+        glColor3fv(getTackColor(ind));
       }
 
       /* draw the tacks in the contour */
       for(j = getListNode(cList,0); j; j = (listNode*) j->next) {
-	t = (vertex*) j->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) j->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
 
@@ -400,9 +400,9 @@ void contourDraw() {
       glColor3fv(COLORS[GRAYED_DARK_ORANGE]);
       l = (list*)getListNode(curDataset->sliceMarkerLists,curSlice+1)->data;
       for(i = getListNode(l,0); i; i = (listNode*) i->next) {
-	t = (vertex*) i->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) i->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
   }
@@ -418,60 +418,60 @@ void contourDraw() {
 
       /* draw the contour lines, if we need to */
       if(lineView) {
-	glPointSize(pixelSize*tackWidth);
-	glBegin(GL_LINES); {
-	  glColor3fv(curContour == ind ? getLineColor(ind)
-		     : getGrayedLineColor(ind));
+        glPointSize(pixelSize*tackWidth);
+        glBegin(GL_LINES); {
+          glColor3fv(curContour == ind ? getLineColor(ind)
+                     : getGrayedLineColor(ind));
 
-	  /* iterate over tacks, drawing lines between each */
-	  prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
-	  for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
-	    t = (vertex*) j->data;
-	    drawLine(prev,t);
-	    prev = t;
-	  }
-	  /* if this is a closed contour with more than 2 tacks,
-	   * draw a line from last to first */
-	  if(j != getListNode(cList,1) && cont->closed == CLOSED) {
-	    drawLine(prev,(vertex*) getListNode(cList,0)->data);
-	  }
-	} glEnd();
+          /* iterate over tacks, drawing lines between each */
+          prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
+          for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
+            t = (vertex*) j->data;
+            drawLine(prev,t);
+            prev = t;
+          }
+          /* if this is a closed contour with more than 2 tacks,
+           * draw a line from last to first */
+          if(j != getListNode(cList,1) && cont->closed == CLOSED) {
+            drawLine(prev,(vertex*) getListNode(cList,0)->data);
+          }
+        } glEnd();
       }
 
       /* draw the tacks in the contour */
       for(j = getListNode(cList,0); j; j = (listNode*) j->next) {
-	t = (vertex*) j->data;
+        t = (vertex*) j->data;
 
-	/* draw the tack */
-	if(t->selected) {
-	  glColor3fv(tackSelectedColor);
-	}
-	else {
-	  glColor3fv(curContour == ind ? getTackColor(ind)
-		     : getGrayedTackColor(ind));
-	}
-	drawTack(t);
+        /* draw the tack */
+        if(t->selected) {
+          glColor3fv(tackSelectedColor);
+        }
+        else {
+          glColor3fv(curContour == ind ? getTackColor(ind)
+                     : getGrayedTackColor(ind));
+        }
+        drawTack(t);
 
-	if(showLabels && t->label != -1) {
-	  glColor3fv(getLabelColor(t->label));
-	  drawLabel(t);	  
-	}
+        if(showLabels && t->label != -1) {
+          glColor3fv(getLabelColor(t->label));
+          drawLabel(t);
+        }
       }
     }
   }
 
   /* draw the labels */
-/*   if(showLabels) { */
-/*     l = (list*)getListNode(curDataset->sliceContourLists,curSlice)->data; */
-/*     for(i = getListNode(curDataset->sliceLabels,0); i; i = (listNode*) i->next) { */
-/*       lab = (label*) i->data; */
-      
-/*       /\* draw the label if it is on this slice *\/ */
-/*       if(lab->sliceLink == l) { /\* choose color based on selection state *\/ */
-/* 	glColor3fv(getLabelColor(lab->lab)); */
-/*       } */
-/*     } */
-/*   } */
+  /*   if(showLabels) { */
+  /*     l = (list*)getListNode(curDataset->sliceContourLists,curSlice)->data; */
+  /*     for(i = getListNode(curDataset->sliceLabels,0); i; i = (listNode*) i->next) { */
+  /*       lab = (label*) i->data; */
+
+  /*       /\* draw the label if it is on this slice *\/ */
+  /*       if(lab->sliceLink == l) { /\* choose color based on selection state *\/ */
+  /*      glColor3fv(getLabelColor(lab->lab)); */
+  /*       } */
+  /*     } */
+  /*   } */
 
   /* draw the markers */
   for(i = getListNode(markers,0); i; i = (listNode*) i->next) {
@@ -496,17 +496,17 @@ void contourDraw() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glRectf(rectCorner1.x,rectCorner1.y,rectCorner2.x,rectCorner2.y);
 
-    glColor4fv(rectFillColor); 
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);     
+    glColor4fv(rectFillColor);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     glRectf(rectCorner1.x,rectCorner1.y,rectCorner2.x,rectCorner2.y);
   }
 
   /* build the mode string */
   sprintf(modeString,"slice %d ",curSlice);
   strcat(modeString,"trace");
-  
+
   if(connectingContours) {
-    strcat(modeString," (connecting contours)");   
+    strcat(modeString," (connecting contours)");
   }
 
   strcat(modeString,":");
@@ -578,112 +578,112 @@ void contourAction(int action) {
   int ret;
 
   switch(action) {
-  case 'b': /* move back one contour */
-    decreaseContour();
-    break;
-  case 'c': /* toggle the closure state of the contour */
-    toggleClosureState(curContour);
-    redisplay();
-    break;
-  case 'e': /* toggle left tack display */
-    showLeftTacks = !showLeftTacks;
-    redisplay();
-    break;
-  case 'f': /* decrease tacking speed */
-    tackPlacePeriod += tackPlaceIncrement;
-    break;
-  case 'g': /* increase tacking speed */
-    tackPlacePeriod -= tackPlaceIncrement;
-    break;
-  case 'k': /* break contour */
-    breakContour();
-    break;
-  case 'J': /* join contours */
-    joinTwoContours();
-    break;
-  case 'l': /* attach a label */
-    setLabelSelected(1);
-    redisplay();
-    break;
-  case 'L': /* detach label */
-    setLabelSelected(-1);
-    redisplay();
-    break;
-  case 'E': /* line view toggle */
-    lineView = !lineView;
-    redisplay();
-    break;
-  case 'n': /* create a new contour */
-  case 'N':
-    cont = createContour();
-    tacks = cont->vertices;
-    enqueue((list*)getListNode(curDataset->sliceContourLists,curSlice)->data,
-	    cont);
-    curContour = listSize((list*)getListNode(curDataset->sliceContourLists,curSlice)->data) - 1;
-    redisplay();
-    break;
-  case 'p': /* print the tack list */
-    fprintf(stdout,"---------------------------------------\n");
-    dumpTackList(tacks);
-    fprintf(stdout,"---------------------------------------\n");
-    break;
-  case 't': /* toggle contour connection mode */
-    connectingContours = !connectingContours;
-    redisplay();
-    break;
-  case 'j': /* fill selected */
-    ret = selectVerticesBetween(tacks);
-    if(DEBUG && ret == SR_FAILURE) {    
-      fprintf(stderr,"selection fill failed\n");
-    }
-    redisplay();
-    break;
-  case 'u': /* unselect */
-    unselectAllTacksContour(tacks);
-    redisplay();
-    break;
-  case 'U':
-    unselectAllTacksSlice((list*)getListNode(curDataset->sliceContourLists,curSlice)->data);
-    redisplay();
-    break;
-  case 'a':
-    selectAllTacksSlice((list*)getListNode(curDataset->sliceContourLists,curSlice)->data);
-    redisplay();
-    break;
-  case 'v': /* move up one contour */
-    increaseContour();
-    break;
-  case 'w': /* toggle current slice tack display */
-    showTacks = !showTacks;
-    redisplay();
-    break;
-  case 'W': /* toggle current slice label display */
-    showLabels = !showLabels;
-    redisplay();
-    break;
-  case 'y': /* smooth the current contour */
-    smoothContour(curSlice,curContour,smoothFactor);
-    redisplay();
-    break;
-  case 'Y': /* smooth all contours */
-    smoothAllContours(smoothFactor);
-    redisplay();
-    break;
-  case 'P': /* preprocess contours */
-    resample = TRUE;
-    preprocessSliceContours(curDataset->sliceContourLists);
-    redisplay();
-    break;
-  case 'r': /* toggle right tack display */
-    showRightTacks = !showRightTacks;
-    redisplay();
-    break;
-  case 'x': /* reverse the direction of the current contour */
-    reverseList(tacks);
-    redisplay();
-    break;
-  default:
-    break;
+    case 'b': /* move back one contour */
+      decreaseContour();
+      break;
+    case 'c': /* toggle the closure state of the contour */
+      toggleClosureState(curContour);
+      redisplay();
+      break;
+    case 'e': /* toggle left tack display */
+      showLeftTacks = !showLeftTacks;
+      redisplay();
+      break;
+    case 'f': /* decrease tacking speed */
+      tackPlacePeriod += tackPlaceIncrement;
+      break;
+    case 'g': /* increase tacking speed */
+      tackPlacePeriod -= tackPlaceIncrement;
+      break;
+    case 'k': /* break contour */
+      breakContour();
+      break;
+    case 'J': /* join contours */
+      joinTwoContours();
+      break;
+    case 'l': /* attach a label */
+      setLabelSelected(1);
+      redisplay();
+      break;
+    case 'L': /* detach label */
+      setLabelSelected(-1);
+      redisplay();
+      break;
+    case 'E': /* line view toggle */
+      lineView = !lineView;
+      redisplay();
+      break;
+    case 'n': /* create a new contour */
+    case 'N':
+      cont = createContour();
+      tacks = cont->vertices;
+      enqueue((list*)getListNode(curDataset->sliceContourLists,curSlice)->data,
+              cont);
+      curContour = listSize((list*)getListNode(curDataset->sliceContourLists,curSlice)->data) - 1;
+      redisplay();
+      break;
+    case 'p': /* print the tack list */
+      fprintf(stdout,"---------------------------------------\n");
+      dumpTackList(tacks);
+      fprintf(stdout,"---------------------------------------\n");
+      break;
+    case 't': /* toggle contour connection mode */
+      connectingContours = !connectingContours;
+      redisplay();
+      break;
+    case 'j': /* fill selected */
+      ret = selectVerticesBetween(tacks);
+      if(DEBUG && ret == SR_FAILURE) {
+        fprintf(stderr,"selection fill failed\n");
+      }
+      redisplay();
+      break;
+    case 'u': /* unselect */
+      unselectAllTacksContour(tacks);
+      redisplay();
+      break;
+    case 'U':
+      unselectAllTacksSlice((list*)getListNode(curDataset->sliceContourLists,curSlice)->data);
+      redisplay();
+      break;
+    case 'a':
+      selectAllTacksSlice((list*)getListNode(curDataset->sliceContourLists,curSlice)->data);
+      redisplay();
+      break;
+    case 'v': /* move up one contour */
+      increaseContour();
+      break;
+    case 'w': /* toggle current slice tack display */
+      showTacks = !showTacks;
+      redisplay();
+      break;
+    case 'W': /* toggle current slice label display */
+      showLabels = !showLabels;
+      redisplay();
+      break;
+    case 'y': /* smooth the current contour */
+      smoothContour(curSlice,curContour,smoothFactor);
+      redisplay();
+      break;
+    case 'Y': /* smooth all contours */
+      smoothAllContours(smoothFactor);
+      redisplay();
+      break;
+    case 'P': /* preprocess contours */
+      resample = TRUE;
+      preprocessSliceContours(curDataset->sliceContourLists);
+      redisplay();
+      break;
+    case 'r': /* toggle right tack display */
+      showRightTacks = !showRightTacks;
+      redisplay();
+      break;
+    case 'x': /* reverse the direction of the current contour */
+      reverseList(tacks);
+      redisplay();
+      break;
+    default:
+      break;
   }
 }
 
@@ -729,23 +729,20 @@ void contourMouse(int button, int state, vector mousePos) {
   int r, l, selectedCount;
   vertex *t, *lastT = NULL;
   list *tackClone, *markerClone;
-  int mod;
-  
+
   /* assign a modifier so we can see them in other funcitons */
   if(state == GLUT_DOWN) {
-    mod = glutGetModifiers();
-
     switch(glutGetModifiers()) {
-    case GLUT_ACTIVE_CTRL:
-      controlDown = TRUE;
-      break;
-    case GLUT_ACTIVE_SHIFT:
-      shiftDown = TRUE;
-      break;
-    case GLUT_ACTIVE_ALT:
-    case GLUT_ACTIVE_SHIFT | GLUT_ACTIVE_CTRL:
-      altDown = TRUE;
-      break;
+      case GLUT_ACTIVE_CTRL:
+        controlDown = TRUE;
+        break;
+      case GLUT_ACTIVE_SHIFT:
+        shiftDown = TRUE;
+        break;
+      case GLUT_ACTIVE_ALT:
+      case GLUT_ACTIVE_SHIFT | GLUT_ACTIVE_CTRL:
+        altDown = TRUE;
+        break;
     }
 
   }
@@ -755,194 +752,194 @@ void contourMouse(int button, int state, vector mousePos) {
 
   /* choose action based on button */
   switch(button) {
-  case GLUT_LEFT_BUTTON:
-    /* left button: lay or delete a tack or select one to move */
-    switch(state) {
-    case GLUT_DOWN:
-      /* mouse down means different things based on the selected
-	 state, whether control/shift is down, whether certains modes
-	 are enabled etc..., so lotsa conditionals based on these
-	 things */
+    case GLUT_LEFT_BUTTON:
+      /* left button: lay or delete a tack or select one to move */
+      switch(state) {
+        case GLUT_DOWN:
+          /* mouse down means different things based on the selected
+             state, whether control/shift is down, whether certains modes
+             are enabled etc..., so lotsa conditionals based on these
+             things */
 
-      /* test to see if we specifying contour connectivity across slices*/
-      if(connectingContours) {
-	connectContours(curSlice,curContour,&mousePos);
-	break;
-      }
-      else if(controlDown) { /* store the location for possible rectangle select */
-	mouseAnchorPos = (vector*) malloc(sizeof(vector));
-	*mouseAnchorPos = mousePos;
-	break;
-      }
+          /* test to see if we specifying contour connectivity across slices*/
+          if(connectingContours) {
+            connectContours(curSlice,curContour,&mousePos);
+            break;
+          }
+          else if(controlDown) { /* store the location for possible rectangle select */
+            mouseAnchorPos = (vector*) malloc(sizeof(vector));
+            *mouseAnchorPos = mousePos;
+            break;
+          }
 
-      /* test for clicking on an existing tack */
-      if(NULL != (t = getTackByLoc(tacks,mousePos.x,mousePos.y)) || /* on tack, move or delete */
-	 NULL != (t = getTackByLoc(markers,mousePos.x,mousePos.y))) {
-	if(controlDown) { /* if ctrl down, handle neighbors */
-	  /* assign the current neighbor */
-	  if(curNeighborNum == 0) {
-	    if(leftNeighbor) { /* unselect any left neighbor that may exist */
-	      //leftNeighbor->selected = FALSE;
-	      leftNeighbor = NULL;
-	    }
+          /* test for clicking on an existing tack */
+          if(NULL != (t = getTackByLoc(tacks,mousePos.x,mousePos.y)) || /* on tack, move or delete */
+             NULL != (t = getTackByLoc(markers,mousePos.x,mousePos.y))) {
+            if(controlDown) { /* if ctrl down, handle neighbors */
+              /* assign the current neighbor */
+              if(curNeighborNum == 0) {
+                if(leftNeighbor) { /* unselect any left neighbor that may exist */
+                  //leftNeighbor->selected = FALSE;
+                  leftNeighbor = NULL;
+                }
 
-	    /* test for in a tack */
-	    if(NULL != (leftNeighbor = getTackByLoc(tacks,mousePos.x,mousePos.y))) {
-	      /* check for redundant neighbors */
-	      if(leftNeighbor == rightNeighbor) {
-		leftNeighbor = NULL;
-		rightNeighbor->selected = FALSE;
-		rightNeighbor = NULL;
-	      }
-	      else {
-		leftNeighbor->selected = TRUE;
-		curNeighborNum = !curNeighborNum;
-	      }
-	    }
-	  }
-	  else {
-	    /* unselect any right neighbor that may exist */
-	    if(rightNeighbor) {
-	      //rightNeighbor->selected = FALSE;
-	      rightNeighbor = NULL;
-	    }
+                /* test for in a tack */
+                if(NULL != (leftNeighbor = getTackByLoc(tacks,mousePos.x,mousePos.y))) {
+                  /* check for redundant neighbors */
+                  if(leftNeighbor == rightNeighbor) {
+                    leftNeighbor = NULL;
+                    rightNeighbor->selected = FALSE;
+                    rightNeighbor = NULL;
+                  }
+                  else {
+                    leftNeighbor->selected = TRUE;
+                    curNeighborNum = !curNeighborNum;
+                  }
+                }
+              }
+              else {
+                /* unselect any right neighbor that may exist */
+                if(rightNeighbor) {
+                  //rightNeighbor->selected = FALSE;
+                  rightNeighbor = NULL;
+                }
 
-	    /* test for in a tack */
-	    if(NULL != (rightNeighbor = getTackByLoc(tacks,mousePos.x,mousePos.y))) {
-	      /* check for redundant neighbors */
-	      if(leftNeighbor == rightNeighbor) {
-		rightNeighbor = NULL;
-		leftNeighbor->selected = FALSE;
-		leftNeighbor = NULL;
-	      }
-	      else {
-		rightNeighbor->selected = TRUE;
-		curNeighborNum = !curNeighborNum;
-	      }
-	    }
-	  }
-	}
-	else { /* no control down, move tack */
-	  dragTack = t;
-	  dragTack->selected = TRUE;
-	}
-      }
-      else if(!altDown)  { /* add a new tack */
-	if(shiftDown && /* add a new marker */
-	   NULL != (dragTack = addTack(markers,mousePos.x,mousePos.y,curSlice))) {
-	  dragTack->selected = TRUE;
-	}
-	else if(rightNeighbor && leftNeighbor) { /* insert between tacks */
-	  /* get indices of neighbors */
-	  r = getIndexOfTack(tacks, rightNeighbor);
-	  l = getIndexOfTack(tacks, leftNeighbor);
+                /* test for in a tack */
+                if(NULL != (rightNeighbor = getTackByLoc(tacks,mousePos.x,mousePos.y))) {
+                  /* check for redundant neighbors */
+                  if(leftNeighbor == rightNeighbor) {
+                    rightNeighbor = NULL;
+                    leftNeighbor->selected = FALSE;
+                    leftNeighbor = NULL;
+                  }
+                  else {
+                    rightNeighbor->selected = TRUE;
+                    curNeighborNum = !curNeighborNum;
+                  }
+                }
+              }
+            }
+            else { /* no control down, move tack */
+              dragTack = t;
+              dragTack->selected = TRUE;
+            }
+          }
+          else if(!altDown)  { /* add a new tack */
+            if(shiftDown && /* add a new marker */
+               NULL != (dragTack = addTack(markers,mousePos.x,mousePos.y,curSlice))) {
+              dragTack->selected = TRUE;
+            }
+            else if(rightNeighbor && leftNeighbor) { /* insert between tacks */
+              /* get indices of neighbors */
+              r = getIndexOfTack(tacks, rightNeighbor);
+              l = getIndexOfTack(tacks, leftNeighbor);
 
-	  /* insert tack */
-	  if(NULL != (dragTack = insertTack(tacks,mousePos.x,mousePos.y, curSlice, min(r,l)))) {
-	    if(abs(r-l) > 1) {
-	      fprintf(stderr, "warning: the right and left neighbors specified aren't adjacent\ninserting after lower index.\n");
-	      break;
-	    }
-	    dragTack->selected = TRUE;
+              /* insert tack */
+              if(NULL != (dragTack = insertTack(tacks,mousePos.x,mousePos.y, curSlice, min(r,l)))) {
+                if(abs(r-l) > 1) {
+                  fprintf(stderr, "warning: the right and left neighbors specified aren't adjacent\ninserting after lower index.\n");
+                  break;
+                }
+                dragTack->selected = TRUE;
 
-	    /* unset the right and left neighbors */
-	    rightNeighbor->selected = FALSE;
-	    rightNeighbor = NULL;
-	    leftNeighbor->selected = FALSE;
-	    leftNeighbor = NULL;
-	    curNeighborNum = 0;
-	  }
-	} /* insert a new tack at the end */
-	else if(NULL != (dragTack = addTack(tacks,mousePos.x,mousePos.y,curSlice))) {
-	  if(echoNewTackCoords) {
-	    fprintf(NEW_TACK_COORDS_FP,"%0.5f %0.5f %d\n",
-		    mousePos.x,mousePos.y,curSlice);
-	  }
+                /* unset the right and left neighbors */
+                rightNeighbor->selected = FALSE;
+                rightNeighbor = NULL;
+                leftNeighbor->selected = FALSE;
+                leftNeighbor = NULL;
+                curNeighborNum = 0;
+              }
+            } /* insert a new tack at the end */
+            else if(NULL != (dragTack = addTack(tacks,mousePos.x,mousePos.y,curSlice))) {
+              if(echoNewTackCoords) {
+                fprintf(NEW_TACK_COORDS_FP,"%0.5f %0.5f %d\n",
+                        mousePos.x,mousePos.y,curSlice);
+              }
 
-	  dragTack->selected = TRUE;	  
-	}
+              dragTack->selected = TRUE;
+            }
+          }
+          break;
+        case GLUT_UP:
+          /* stop the dragging */
+          if(NULL != dragTack) {
+            if(dragTack != leftNeighbor && dragTack != rightNeighbor) {
+              dragTack->selected = FALSE;
+            }
+
+            dragTack = NULL;
+          }
+          else { /* select all the tacks in the rectangle */
+            if(mouseAnchorPos == NULL) break;
+
+            tackClone = cloneList(tacks);
+            markerClone = cloneList(markers);
+            selectedCount = 0;
+
+            while(NULL != (t = getTackInRect(tackClone,mouseAnchorPos->x,mouseAnchorPos->y,
+                                             mousePos.x,mousePos.y)) ||
+                  NULL != (t = getTackInRect(markerClone,mouseAnchorPos->x,mouseAnchorPos->y,
+                                             mousePos.x,mousePos.y))) {
+              /* select  */
+              t->selected = TRUE;
+              lastT = t;
+              selectedCount++;
+
+              /* delete based on list */
+              if(-1 != (r = getIndexOfTack(tackClone, t))) {
+                removeListNode(tackClone, r);
+              }
+              else if(-1 != (r = getIndexOfTack(markerClone, t))) {
+                removeListNode(markerClone, r);
+              }
+            }
+
+            /* store the last two selected vertices */
+            if(selectedCount == 1) {
+              rightNeighbor = leftNeighbor;
+              leftNeighbor = lastT;
+            }
+
+            free(mouseAnchorPos);
+            freeList(tackClone);
+            freeList(markerClone);
+            mouseAnchorPos = NULL;
+          }
+          break;
       }
       break;
-    case GLUT_UP:
-      /* stop the dragging */
-      if(NULL != dragTack) {
-	if(dragTack != leftNeighbor && dragTack != rightNeighbor) {
-	  dragTack->selected = FALSE;
-	}
-
-	dragTack = NULL;
+    case GLUT_MIDDLE_BUTTON: /* delete */
+      if(state == GLUT_DOWN) {
+        /* test to see if we are specifying contour connectivity across slices*/
+        if(connectingContours) {
+          disconnectContours(curSlice,curContour,&mousePos);
+          break;
+        }
+        else { /* store the location for possible rectangle delete */
+          mouseAnchorPos = (vector*) malloc(sizeof(vector));
+          *mouseAnchorPos = mousePos;
+        }
       }
-      else { /* select all the tacks in the rectangle */
-	if(mouseAnchorPos == NULL) break;
+      else if(state == GLUT_UP) {
+        if(mouseAnchorPos == NULL) break;
 
-	tackClone = cloneList(tacks);
-	markerClone = cloneList(markers);
-	selectedCount = 0;
+        while(NULL != (t = getTackInRect(tacks,mouseAnchorPos->x,mouseAnchorPos->y,
+                                         mousePos.x,mousePos.y)) ||
+              NULL != (t = getTackInRect(markers,mouseAnchorPos->x,mouseAnchorPos->y,
+                                         mousePos.x,mousePos.y))) {
+          /* delete based on list */
+          if(-1 != (r = getIndexOfTack(tacks, t))) {
+            removeListNode(tacks, r);
+          }
+          else if(-1 != (r = getIndexOfTack(markers, t))) {
+            removeListNode(markers, r);
+          }
+        }
 
-	while(NULL != (t = getTackInRect(tackClone,mouseAnchorPos->x,mouseAnchorPos->y,
-					 mousePos.x,mousePos.y)) ||
-	      NULL != (t = getTackInRect(markerClone,mouseAnchorPos->x,mouseAnchorPos->y,
-					 mousePos.x,mousePos.y))) {
-	  /* select  */
-	  t->selected = TRUE;
-	  lastT = t;
-	  selectedCount++;
-
-	  /* delete based on list */
-	  if(-1 != (r = getIndexOfTack(tackClone, t))) {
-	    removeListNode(tackClone, r);
-	  }
-	  else if(-1 != (r = getIndexOfTack(markerClone, t))) {
-	    removeListNode(markerClone, r);
-	  }
-	}
-	
-	/* store the last two selected vertices */
-	if(selectedCount == 1) {	  
-	  rightNeighbor = leftNeighbor;
-	  leftNeighbor = lastT;
-	}
-
-	free(mouseAnchorPos);
-	freeList(tackClone);
-	freeList(markerClone);
-	mouseAnchorPos = NULL;
+        free(mouseAnchorPos);
+        mouseAnchorPos = NULL;
       }
       break;
-    }
-    break;
-  case GLUT_MIDDLE_BUTTON: /* delete */
-    if(state == GLUT_DOWN) {
-      /* test to see if we are specifying contour connectivity across slices*/
-      if(connectingContours) {
-	disconnectContours(curSlice,curContour,&mousePos);
-	break;
-      }
-      else { /* store the location for possible rectangle delete */
-	mouseAnchorPos = (vector*) malloc(sizeof(vector));
-	*mouseAnchorPos = mousePos;
-      }
-    }
-    else if(state == GLUT_UP) {
-      if(mouseAnchorPos == NULL) break;
-
-      while(NULL != (t = getTackInRect(tacks,mouseAnchorPos->x,mouseAnchorPos->y,
-				       mousePos.x,mousePos.y)) ||
-	    NULL != (t = getTackInRect(markers,mouseAnchorPos->x,mouseAnchorPos->y,
-				       mousePos.x,mousePos.y))) {
-	/* delete based on list */
-	if(-1 != (r = getIndexOfTack(tacks, t))) {
-	  removeListNode(tacks, r);
-	}
-	else if(-1 != (r = getIndexOfTack(markers, t))) {
-	  removeListNode(markers, r);
-	}
-      }
-	
-      free(mouseAnchorPos);
-      mouseAnchorPos = NULL;
-    }    
-    break;
   }
 
   /* store the last positions for the up */
@@ -1035,7 +1032,7 @@ void unselectAllTacksSlice(list *contours) {
 
   for(ln = getListNode(contours,0); ln; ln = (listNode*) ln->next) {
     unselectAllTacksContour(((contour*) ln->data)->vertices);
-  }  
+  }
 }
 
 /**
@@ -1049,7 +1046,7 @@ void selectAllTacksSlice(list *contours) {
 
   for(ln = getListNode(contours,0); ln; ln = (listNode*) ln->next) {
     selectAllTacksContour(((contour*) ln->data)->vertices);
-  }  
+  }
 }
 
 /**
@@ -1063,7 +1060,7 @@ void unselectAllTacksDataset(dataset *ds) {
 
   for(ln = getListNode(ds->sliceContourLists,0); ln; ln = (listNode*) ln->next) {
     unselectAllTacksSlice((list*) ln->data);
-  }  
+  }
 }
 
 /**
@@ -1077,12 +1074,12 @@ void selectAllTacksDataset(dataset *ds) {
 
   for(ln = getListNode(ds->sliceContourLists,0); ln; ln = (listNode*) ln->next) {
     selectAllTacksSlice((list*) ln->data);
-  }  
+  }
 }
 
 /**
  * validate contours by removing empty contours and finding intersecting ones
- * THIS IS POSSIBLY BUGGY DUE TO THE SIMULTANEOUS DELETION AND REFERENCE OF 
+ * THIS IS POSSIBLY BUGGY DUE TO THE SIMULTANEOUS DELETION AND REFERENCE OF
  * CONTOURS
  */
 int validateContours(dataset *ds) {
@@ -1102,13 +1099,13 @@ int validateContours(dataset *ds) {
 
     /* iterate over contours, checking each */
     for(contNode = getListNode(slice,0), contInd = 0; contNode;
-	contNode = (listNode*) contNode->next, contInd++) {
-      
+        contNode = (listNode*) contNode->next, contInd++) {
+
       c = (contour*) contNode->data;
 
       /* remove if empty */
       if(listSize(c->vertices) < 1) {
-	removeContour(ds,slice,c);
+        removeContour(ds,slice,c);
       }
     }
 
@@ -1118,14 +1115,14 @@ int validateContours(dataset *ds) {
 
     if(DEBUG && localIntersecting) {
       fprintf(stdout,"found contour intersection on slice %d\n", sliceInd);
-    }      
+    }
   }
 
   return intersectingFound == TRUE ? FAILURE : SUCCESS;
 }
 
-/** 
- * select the tacks at endpoints of segments that intersect 
+/**
+ * select the tacks at endpoints of segments that intersect
  */
 int selectIntersecting(list *contours) {
   int foundIntersecting = 0;
@@ -1147,12 +1144,12 @@ int selectIntersecting(list *contours) {
       if(otherNode == thisNode) break;
     }
   }
-  
+
   return foundIntersecting;
 }
 
 /**
- * select contour intersection points 
+ * select contour intersection points
  */
 int selectContourIntersections(contour *c1, contour *c2) {
   int foundIntersecting = 0;
@@ -1177,27 +1174,27 @@ int selectContourIntersections(contour *c1, contour *c2) {
       /* if they are the same vertex, dont test */
       if(v21 == v11 || v22 == v11 || v22 == v12 || v21 == v12) continue;
 
-      
 
-      /* test the segments */      
+
+      /* test the segments */
       if(segmentsIntersect2D(v11,v12,v21,v22) == TRUE) {
-	v11->selected = v12->selected = v21->selected = v22->selected = TRUE;
-	foundIntersecting = TRUE;
+        v11->selected = v12->selected = v21->selected = v22->selected = TRUE;
+        foundIntersecting = TRUE;
       }
     }
   }
-  
+
   return foundIntersecting;
 }
 
 /**
- * tests for two dimensional segment intersection 
+ * tests for two dimensional segment intersection
  */
 int segmentsIntersect2D(vertex *v11, vertex *v12, vertex *v21, vertex *v22) {
   return segmentsIntersect(v11->x, v11->y, 0.0f,
-			   v12->x, v12->y, 0.0f,
-			   v21->x, v21->y, 0.0f,
-			   v22->x, v22->y, 0.0f); 
+                           v12->x, v12->y, 0.0f,
+                           v21->x, v21->y, 0.0f,
+                           v22->x, v22->y, 0.0f);
 }
 
 
@@ -1211,7 +1208,7 @@ void smoothAllContours(double factor) {
   /* iterate over slices and contours, smoothing each */
   for(slice = 0; slice < curDataset->numSlices; slice++) {
     numContours = listSize((list*) getListNode(curDataset->sliceContourLists,
-					       slice)->data);
+                                               slice)->data);
 
     for(contour = 0; contour < numContours; contour++) {
       smoothContour(slice, contour, factor);
@@ -1233,9 +1230,9 @@ void smoothContourGauss(int sliceIndex, int contourIndex, double factor) {
   int tackInd, sliceInd, contInd, contTackInd;
   double newX, newY, weight;
   list *slice = (list*) getListNode(curDataset->sliceContourLists,
-				    sliceIndex)->data;
+                                    sliceIndex)->data;
   list *tacks = ((contour*) getListNode(slice,contourIndex)->data)->vertices,
-    *contTacks;
+      *contTacks;
   vertex *contT, *t;
 
   /* smoothing parm */
@@ -1250,35 +1247,35 @@ void smoothContourGauss(int sliceIndex, int contourIndex, double factor) {
     /* iterate over each slice within range, take weighted average
        of tacks in nearby slices */
     for(sliceInd = curSlice-sliceRange; sliceInd < curSlice+sliceRange;
-	sliceInd++) {
+        sliceInd++) {
       /* validate slice range */
       if(sliceInd < 0 ||
-	 sliceInd > curDataset->numSlices ||
-	 sliceInd == curSlice) {
-	continue;
+         sliceInd > curDataset->numSlices ||
+         sliceInd == curSlice) {
+        continue;
       }
 
       /* get the slice */
       slice = (list*) getListNode(curDataset->sliceContourLists,
-				  sliceInd)->data;
+                                  sliceInd)->data;
 
       /* weighted average of tacks in the slice */
       for(contInd = 0;
-	  contInd < listSize(slice);
-	  contInd++) {
-	contTacks = ((contour*)
-		     getListNode(slice,contInd)->data)->vertices;
-	for(contTackInd = 0; contTackInd < listSize(contTacks);
-	    contTackInd++) {
-	  contT = (vertex*) getListNode(contTacks,contTackInd)->data;
+          contInd < listSize(slice);
+          contInd++) {
+        contTacks = ((contour*)
+                     getListNode(slice,contInd)->data)->vertices;
+        for(contTackInd = 0; contTackInd < listSize(contTacks);
+            contTackInd++) {
+          contT = (vertex*) getListNode(contTacks,contTackInd)->data;
 
-	  /* get the weight */
-	  weight = gaussian(tackDistance(t,contT));
+          /* get the weight */
+          weight = gaussian(tackDistance(t,contT));
 
-	  /* update the coordinates */
-	  newX += weight * (contT->x - t->x);
-	  newY += weight * (contT->y - t->y);;
-	}
+          /* update the coordinates */
+          newX += weight * (contT->x - t->x);
+          newY += weight * (contT->y - t->y);;
+        }
       }
     }
 
@@ -1310,13 +1307,13 @@ void removeContour(dataset *ds, list* slice, contour* cont) {
     for(ln = getListNode((list*) getListNode(ds->sliceContourLists,sl-1)->data,0); ln; ln = (listNode*) ln->next) {
       adjacentList = ((contour*) ln->data)->adjacentContours;
       for(aln = getListNode(adjacentList,0), adj = 0; aln;
-	  aln = (listNode*) aln->next, adj++) {
-	c = (contour*) aln->data;
+          aln = (listNode*) aln->next, adj++) {
+        c = (contour*) aln->data;
 
-	/* test for this contour */
-	if(c == cont) {
-	  removeListNode(adjacentList,adj);
-	}
+        /* test for this contour */
+        if(c == cont) {
+          removeListNode(adjacentList,adj);
+        }
       }
     }
   }
@@ -1421,7 +1418,7 @@ void joinTwoContours() {
     tmpCont = (contour*) ln->data;
     for(ln2 = getListNode(tmpCont->adjacentContours,0); ln2; ln2 = (listNode*) ln2->next) {
       if(ln2->data == otherCont) {
-	ln2->data = newCont;
+        ln2->data = newCont;
       }
     }
   }
@@ -1484,8 +1481,8 @@ void connectContours(int sliceInd, int contInd, vector *mousePos) {
 
   /* assign the current contour and next slice */
   curCont = (contour*)
-    getListNode((list*) getListNode(curDataset->sliceContourLists,
-				    sliceInd)->data,contInd)->data;
+      getListNode((list*) getListNode(curDataset->sliceContourLists,
+                                      sliceInd)->data,contInd)->data;
 
   nextSlice = (list*) getListNode(curDataset->sliceContourLists,sliceInd+1)->data;
 
@@ -1495,8 +1492,8 @@ void connectContours(int sliceInd, int contInd, vector *mousePos) {
     /* test the tacks for contatinment */
     if(NULL != getTackByLoc(testCont->vertices,mousePos->x,mousePos->y)) {
       if(!listContains(curCont->adjacentContours,testCont)) {
-	enqueue(curCont->adjacentContours,testCont);
-	return;
+        enqueue(curCont->adjacentContours,testCont);
+        return;
       }
     }
   }
@@ -1526,8 +1523,8 @@ void disconnectContours(int sliceInd, int contInd, vector *mousePos) {
     /* test the tacks for contatinment */
     if(NULL != getTackByLoc(testCont->vertices,mousePos->x,mousePos->y)) {
       if(FAILURE != (ind = findInListI(curCont->adjacentContours,testCont))) {
-	removeListNode(curCont->adjacentContours,ind);
-	return;
+        removeListNode(curCont->adjacentContours,ind);
+        return;
       }
     }
   }
@@ -1551,21 +1548,21 @@ void setLabelSelected(int l) {
 
       /* if the vertex is selected, label it */
       if(vert->selected) {
-	lab = (label*) malloc(sizeof(label));
+        lab = (label*) malloc(sizeof(label));
 
-	/* assign the fields of the label */
-	lab->slice = curSlice;
-	lab->cont = curContour;
-	
-	lab->lab = l;
+        /* assign the fields of the label */
+        lab->slice = curSlice;
+        lab->cont = curContour;
 
-	lab->sliceLink = slice;
-	lab->contourLink = cont;
-	lab->vertexLink = vert;
+        lab->lab = l;
 
-	vert->label = lab->lab;
+        lab->sliceLink = slice;
+        lab->contourLink = cont;
+        lab->vertexLink = vert;
 
-	vert->selected = FALSE;
+        vert->label = lab->lab;
+
+        vert->selected = FALSE;
       }
     }
   }
@@ -1579,9 +1576,9 @@ void setLabelSelected(int l) {
 int findFirstSelectedVertex(contour *cont) {
   int ind = -1;
   listNode *ln;
-  
+
   if(cont->vertices == NULL) return -1;
-  for(ln = getListNode(cont->vertices,0), ind = 0; ln; 
+  for(ln = getListNode(cont->vertices,0), ind = 0; ln;
       ln = (listNode*) ln->next, ind++) {
     if(((vertex*)ln->data)->selected) {
       return ind;

@@ -3,7 +3,7 @@
  * application to construct surfaces from serial secions
  * Oliver Hinds <oph@cns.bu.edu> 2004-02-04
  *
- * 
+ *
  *
  *****************************************************************************/
 
@@ -86,12 +86,12 @@ void alignTimerEvent(int value);
 /*  *\/ */
 /* double alignScaleY(double y); */
 
-/** 
+/**
  * gets the midpoint of a bounding box of a quad
  */
 vector getMidPoint(quadri q);
 
-/** 
+/**
  * gets the size of a bounding box of a quad
  */
 vector getSize(quadri q);
@@ -117,7 +117,7 @@ double applyScaleX(double x);
 double applyScaleY(double y);
 
 /**
- * translates a point 
+ * translates a point
  */
 void doTranslateAction(double *x, double *y, vector trans);
 
@@ -132,7 +132,7 @@ void doRotateAction(double *x, double *y, vector rotCenter, double angle);
 void doScaleAction(double *x, double *y, vector scale);
 
 /**
- * gets a translation of a quad 
+ * gets a translation of a quad
  */
 quadri getQuadTranslation(quadri base, vector trans);
 
@@ -146,18 +146,18 @@ quadri getQuadRotation(quadri base, vector rotCenter, double angle);
  */
 quadri getQuadScale(quadri base, vector scale);
 
-/** 
+/**
  * sets the center of rotation
  */
 void setRotationCenter2D(double x, double y);
 
-/** 
+/**
  * sets the center of rotation
  */
 void setRotationCenterV(vector rc);
 
 /**
-  * get the world coordinates of the rotation center
+ * get the world coordinates of the rotation center
  */
 vector getRotCenterWorldCoords(vector rc);
 
@@ -180,7 +180,7 @@ void applyRotation(vector rotCenter, double angle);
 void applyScale(vector scale);
 
 /**
- * apply a set of actions to an image coordinate 
+ * apply a set of actions to an image coordinate
  */
 quadri applyActions(list *l, quadri base);
 
@@ -190,7 +190,7 @@ quadri applyActions(list *l, quadri base);
 void resetImage();
 
 /**
- * undo last action 
+ * undo last action
  */
 void undoLastAction();
 

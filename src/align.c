@@ -256,34 +256,34 @@ void alignDraw() {
       /* turn on texture mapping */
       glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
       glEnable(textureMethod);
-      
+
       /* bind the texture */
       glBindTexture(textureMethod, *refTex);
-      
+
       /* get the window coordinates of the reference image */
       curPos = getWindowCoordsQ(refImgBounds);
-      
+
       if(textureMethod == GL_TEXTURE_2D) {
-	maxTexX = ref->width/(float)(ref->width+ref->padX);
-	maxTexY = ref->height/(float)(ref->height+ref->padY);
+        maxTexX = ref->width/(float)(ref->width+ref->padX);
+        maxTexY = ref->height/(float)(ref->height+ref->padY);
       }
-      
+
       /* make a quadrilateral and provide texture coords */
       glBegin(GL_QUADS); {
-	glTexCoord2d(0.0,0.0);
-	glVertex3d(curPos.v1.x, curPos.v1.y, 0.0);
-	glTexCoord2d(maxTexX,0.0);
-	glVertex3d(curPos.v2.x, curPos.v2.y, 0.0);
-	glTexCoord2d(maxTexX,maxTexY);
-	glVertex3d(curPos.v3.x, curPos.v3.y, 0.0);
-	glTexCoord2d(0.0,maxTexY);
-	glVertex3d(curPos.v4.x, curPos.v4.y, 0.0);
+        glTexCoord2d(0.0,0.0);
+        glVertex3d(curPos.v1.x, curPos.v1.y, 0.0);
+        glTexCoord2d(maxTexX,0.0);
+        glVertex3d(curPos.v2.x, curPos.v2.y, 0.0);
+        glTexCoord2d(maxTexX,maxTexY);
+        glVertex3d(curPos.v3.x, curPos.v3.y, 0.0);
+        glTexCoord2d(0.0,maxTexY);
+        glVertex3d(curPos.v4.x, curPos.v4.y, 0.0);
       } glEnd();
       glDisable(textureMethod);
     }
   }
   else if(curSlice == 0 || !animate
-	  || displayImg == 1) { /* apply the current rot & trans */
+          || displayImg == 1) { /* apply the current rot & trans */
     /* calculate transformed coordinates based on current rot and trans */
     if(moving) {
       curPos = getQuadTranslation(movImgBounds, curTransAction);
@@ -302,8 +302,8 @@ void alignDraw() {
 
     if(curDataset->imageSource != VP_NOIMAGES) {
       if(textureMethod == GL_TEXTURE_2D) {
-	maxTexX = mov->width/(float)(mov->width+mov->padX);
-	maxTexY = mov->height/(float)(mov->height+mov->padY);
+        maxTexX = mov->width/(float)(mov->width+mov->padX);
+        maxTexY = mov->height/(float)(mov->height+mov->padY);
       }
 
       /* turn on texture mapping */
@@ -318,14 +318,14 @@ void alignDraw() {
 
       /* make a quadrilateral and provide texture coords */
       glBegin(GL_QUADS); {
-	glTexCoord2f(0,0);
-	glVertex3d(curPos.v1.x, curPos.v1.y, 0);
-	glTexCoord2f(maxTexX,0);
-	glVertex3d(curPos.v2.x, curPos.v2.y, 0);
-	glTexCoord2f(maxTexX,maxTexY);
-	glVertex3d(curPos.v3.x, curPos.v3.y, 0);
-	glTexCoord2f(0,maxTexY);
-	glVertex3d(curPos.v4.x, curPos.v4.y, 0);
+        glTexCoord2f(0,0);
+        glVertex3d(curPos.v1.x, curPos.v1.y, 0);
+        glTexCoord2f(maxTexX,0);
+        glVertex3d(curPos.v2.x, curPos.v2.y, 0);
+        glTexCoord2f(maxTexX,maxTexY);
+        glVertex3d(curPos.v3.x, curPos.v3.y, 0);
+        glTexCoord2f(0,maxTexY);
+        glVertex3d(curPos.v4.x, curPos.v4.y, 0);
       } glEnd();
       glDisable(textureMethod);
     }
@@ -344,20 +344,20 @@ void alignDraw() {
       /* draw the contour lines, if we need to */
       glPointSize(pixelSize*tackWidth);
       glBegin(GL_LINES); {
-	/* iterate over tacks, drawing lines between each */
-	prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
-	for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
-	  t = (vertex*) j->data;
-	  drawLine(prev,t);
-	  prev = t;
-	}
+        /* iterate over tacks, drawing lines between each */
+        prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
+        for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
+          t = (vertex*) j->data;
+          drawLine(prev,t);
+          prev = t;
+        }
       } glEnd();
 
       /* draw the tacks in the contour */
       for(j = getListNode(cList,0); j; j = (listNode*) j->next) {
-	t = (vertex*) j->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) j->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
 
@@ -385,20 +385,20 @@ void alignDraw() {
       /* draw the contour lines, if we need to */
       glPointSize(pixelSize*tackWidth);
       glBegin(GL_LINES); {
-	/* iterate over tacks, drawing lines between each */
-	prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
-	for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
-	  t = (vertex*) j->data;
-	  drawLine(prev,t);
-	  prev = t;
-	}
+        /* iterate over tacks, drawing lines between each */
+        prev = listSize(cList) > 1 ? (vertex*) getListNode(cList,0)->data : NULL;
+        for(j = getListNode(cList,1); prev && j; j = (listNode*) j->next) {
+          t = (vertex*) j->data;
+          drawLine(prev,t);
+          prev = t;
+        }
       } glEnd();
 
       /* draw the tacks in the contour */
       for(j = getListNode(cList,0); j; j = (listNode*) j->next) {
-	t = (vertex*) j->data;
-	/* draw the tack */
-	drawTack(t);
+        t = (vertex*) j->data;
+        /* draw the tack */
+        drawTack(t);
       }
     }
 
@@ -452,8 +452,8 @@ void alignTimerEvent(int value) {
  */
 vector getMidPoint(quadri q) {
   vector mid,
-    minXY = getMinXY(q),
-    maxXY = getMaxXY(q);
+      minXY = getMinXY(q),
+      maxXY = getMaxXY(q);
 
   mid.x = 0.5*(minXY.x+maxXY.x);
   mid.y = 0.5*(minXY.y+maxXY.y);
@@ -467,8 +467,8 @@ vector getMidPoint(quadri q) {
  */
 vector getSize(quadri q) {
   vector siz,
-    minXY = getMinXY(q),
-    maxXY = getMaxXY(q);
+      minXY = getMinXY(q),
+      maxXY = getMaxXY(q);
 
   siz.x = maxXY.x-minXY.x;
   siz.y = maxXY.y-minXY.y;
@@ -679,10 +679,10 @@ void applyTranslation(vector transAction) {
     for(i = getListNode(curDataset->sliceActionLists,curSlice+1); i; i = (listNode*) i->next) {
       postActions = (list*) i->data;
       if(!addTranslationAction(postActions, transAction)) {
-	fprintf(stderr, "error: can't allocate memory to store a translation action\n");
+        fprintf(stderr, "error: can't allocate memory to store a translation action\n");
       }
       else { /* successful allocation, consolodate  */
-	consolidateActions(postActions);
+        consolidateActions(postActions);
       }
     }
 
@@ -690,11 +690,11 @@ void applyTranslation(vector transAction) {
     for(i = getListNode(curDataset->sliceContourLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	postTackList = ((contour*) j->data)->vertices;
-	for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
-	  curTack = (vertex*) k->data;
-	  doTranslateAction(&curTack->x, &curTack->y, transAction);
-	}
+        postTackList = ((contour*) j->data)->vertices;
+        for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
+          curTack = (vertex*) k->data;
+          doTranslateAction(&curTack->x, &curTack->y, transAction);
+        }
       }
     }
 
@@ -702,8 +702,8 @@ void applyTranslation(vector transAction) {
     for(i = getListNode(curDataset->sliceMarkerLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	curTack = (vertex*) j->data;
-	doTranslateAction(&curTack->x, &curTack->y, transAction);
+        curTack = (vertex*) j->data;
+        doTranslateAction(&curTack->x, &curTack->y, transAction);
       }
     }
   }
@@ -734,10 +734,10 @@ void applyRotation(vector rotCenter, double angle) {
     for(i = getListNode(curDataset->sliceActionLists,curSlice+1); i; i = (listNode*) i->next) {
       postActions = (list*) i->data;
       if(!addRotationAction(postActions, rotCenter, angle)) {
-	fprintf(stderr, "error: can't allocate memory to store a rotation action\n");
+        fprintf(stderr, "error: can't allocate memory to store a rotation action\n");
       }
       else { /* successful allocation, consolodate  */
-	consolidateActions(postActions);
+        consolidateActions(postActions);
       }
     }
 
@@ -745,11 +745,11 @@ void applyRotation(vector rotCenter, double angle) {
     for(i = getListNode(curDataset->sliceContourLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	postTackList = ((contour*) j->data)->vertices;
-	for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
-	  curTack = (vertex*) k->data;
-	  doRotateAction(&curTack->x, &curTack->y, rotCenter, angle);
-	}
+        postTackList = ((contour*) j->data)->vertices;
+        for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
+          curTack = (vertex*) k->data;
+          doRotateAction(&curTack->x, &curTack->y, rotCenter, angle);
+        }
       }
     }
 
@@ -757,8 +757,8 @@ void applyRotation(vector rotCenter, double angle) {
     for(i = getListNode(curDataset->sliceMarkerLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	curTack = (vertex*) j->data;
-	doRotateAction(&curTack->x, &curTack->y, rotCenter, angle);
+        curTack = (vertex*) j->data;
+        doRotateAction(&curTack->x, &curTack->y, rotCenter, angle);
       }
     }
   }
@@ -790,10 +790,10 @@ void applyScale(vector scaleAction) {
     for(i = getListNode(curDataset->sliceActionLists,curSlice+1); i; i = (listNode*) i->next) {
       postActions = (list*) i->data;
       if(!addScaleAction(postActions, scaleAction)) {
-	fprintf(stderr, "error: can't allocate memory to store a scale action\n");
+        fprintf(stderr, "error: can't allocate memory to store a scale action\n");
       }
       else { /* successful allocation, consolodate  */
-	consolidateActions(postActions);
+        consolidateActions(postActions);
       }
     }
 
@@ -801,11 +801,11 @@ void applyScale(vector scaleAction) {
     for(i = getListNode(curDataset->sliceContourLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	postTackList = ((contour*) j->data)->vertices;
-	for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
-	  curTack = (vertex*) k->data;
-	  doScaleAction(&curTack->x, &curTack->y, scaleAction);
-	}
+        postTackList = ((contour*) j->data)->vertices;
+        for(k = getListNode(postTackList,0); k; k = (listNode*) k->next) {
+          curTack = (vertex*) k->data;
+          doScaleAction(&curTack->x, &curTack->y, scaleAction);
+        }
       }
     }
 
@@ -813,8 +813,8 @@ void applyScale(vector scaleAction) {
     for(i = getListNode(curDataset->sliceMarkerLists,curSlice); i; i = (listNode*) i->next) {
       postContour = (list*) i->data;
       for(j = getListNode(postContour,0); j; j = (listNode*) j->next) {
-	curTack = (vertex*) j->data;
-	doScaleAction(&curTack->x, &curTack->y, scaleAction);
+        curTack = (vertex*) j->data;
+        doScaleAction(&curTack->x, &curTack->y, scaleAction);
       }
     }
   }
@@ -835,17 +835,17 @@ quadri applyActions(list *l, quadri base) {
 
     /* apply action and add it to the list */
     switch(a->type) {
-    case TRANSLATION:
-      res = getQuadTranslation(res, a->trans);
-      break;
-    case ROTATION:
-      res = getQuadRotation(res, a->rotCenter, a->angle);
-      break;
-    case SCALE:
-      res = getQuadScale(res, a->scale);
-      break;
-    default:
-      fprintf(stderr, "error: unrecognized action type %d\n", a->type);
+      case TRANSLATION:
+        res = getQuadTranslation(res, a->trans);
+        break;
+      case ROTATION:
+        res = getQuadRotation(res, a->rotCenter, a->angle);
+        break;
+      case SCALE:
+        res = getQuadScale(res, a->scale);
+        break;
+      default:
+        fprintf(stderr, "error: unrecognized action type %d\n", a->type);
     }
   }
 
@@ -861,106 +861,106 @@ void alignAction(int action) {
   vector actionVector;
 
   switch(action) {
-  case 'a': /* turn animation on or off */
-    if(TRUE == (animate = !animate)) {
-      glutTimerFunc(framePeriod, alignTimerEvent, 0);
-    }
-    else {
-      displayImg = 1;
-    }
-    redisplay();
-    break;
-  case 'c': /* set the rotation center */
-    settingRotCenter = TRUE;
-    break;
-  case 'y': /* speed up the flickering */
-    switchPeriod -= switchPerIncrement;
-    if(switchPeriod < 0) switchPeriod = 0;
-    break;
-  case 't': /* slow down the flickering */
-    switchPeriod += switchPerIncrement;
-    if(switchPeriod > MAX_SWITCH_PERIOD) switchPeriod = MAX_SWITCH_PERIOD;
-    break;
-  case 'e': /* toggle previous slice tack display */
-    showPrevTacks = !showPrevTacks;
-    redisplay();
-    break;
-  case 'w': /* toggle curent slice tack display */
-    showCurTacks = !showCurTacks;
-    redisplay();
-    break;
-  case 'Q':
-    displayImg = !displayImg;
-    redisplay();
-    break;
-  case 'p': /* print the action list */
-  case 'P':
-    fprintf(stdout,"---------------------------------------\n");
-    dumpActionList(actions);
-    fprintf(stdout,"---------------------------------------\n");
-    break;
-/*   case 'r': /\* reset the position of the reference image to unmoved *\/ */
-/*     resetImage(); */
-/*     break; */
-/*   case 'u': /\* undo the last action *\/ */
-/*   case 'U': */
-/*     undoLastAction(); */
-/*     break; */
-    /* fine direction stuff using numeric keypad */
-  case '1': /* down and left */
-    actionVector.x = -transIncrX;
-    actionVector.y = -transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '2': /* down */
-    actionVector.x = 0;
-    actionVector.y = -transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '3': /* down and right */
-    actionVector.x = transIncrX;
-    actionVector.y = -transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '4': /* left */
-    actionVector.x = -transIncrX;
-    actionVector.y = 0;
-    applyTranslation(actionVector);
-    break;
-  case '6': /* right */
-    actionVector.x = transIncrX;
-    actionVector.y = 0;
-    applyTranslation(actionVector);
-    break;
-  case '7': /* up and left  */
-    actionVector.x = -transIncrX;
-    actionVector.y = transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '8': /* up */
-    actionVector.x = 0;
-    actionVector.y = transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '9': /* up and right */
-    actionVector.x = transIncrX;
-    actionVector.y = transIncrY;
-    applyTranslation(actionVector);
-    break;
-  case '=': /* grow the slice */
-  case '+':
-    actionVector.x = scaleIncrX;
-    actionVector.y = scaleIncrY;
-    applyScale(actionVector);
-    break;
-  case '-': /* shrink the slice */
-  case '_':
-    actionVector.x = -scaleIncrX;
-    actionVector.y = -scaleIncrY;
-    applyScale(actionVector);
-    break;
-  default:
-    break;
+    case 'a': /* turn animation on or off */
+      if(TRUE == (animate = !animate)) {
+        glutTimerFunc(framePeriod, alignTimerEvent, 0);
+      }
+      else {
+        displayImg = 1;
+      }
+      redisplay();
+      break;
+    case 'c': /* set the rotation center */
+      settingRotCenter = TRUE;
+      break;
+    case 'y': /* speed up the flickering */
+      switchPeriod -= switchPerIncrement;
+      if(switchPeriod < 0) switchPeriod = 0;
+      break;
+    case 't': /* slow down the flickering */
+      switchPeriod += switchPerIncrement;
+      if(switchPeriod > MAX_SWITCH_PERIOD) switchPeriod = MAX_SWITCH_PERIOD;
+      break;
+    case 'e': /* toggle previous slice tack display */
+      showPrevTacks = !showPrevTacks;
+      redisplay();
+      break;
+    case 'w': /* toggle curent slice tack display */
+      showCurTacks = !showCurTacks;
+      redisplay();
+      break;
+    case 'Q':
+      displayImg = !displayImg;
+      redisplay();
+      break;
+    case 'p': /* print the action list */
+    case 'P':
+      fprintf(stdout,"---------------------------------------\n");
+      dumpActionList(actions);
+      fprintf(stdout,"---------------------------------------\n");
+      break;
+      /*   case 'r': /\* reset the position of the reference image to unmoved *\/ */
+      /*     resetImage(); */
+      /*     break; */
+      /*   case 'u': /\* undo the last action *\/ */
+      /*   case 'U': */
+      /*     undoLastAction(); */
+      /*     break; */
+      /* fine direction stuff using numeric keypad */
+    case '1': /* down and left */
+      actionVector.x = -transIncrX;
+      actionVector.y = -transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '2': /* down */
+      actionVector.x = 0;
+      actionVector.y = -transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '3': /* down and right */
+      actionVector.x = transIncrX;
+      actionVector.y = -transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '4': /* left */
+      actionVector.x = -transIncrX;
+      actionVector.y = 0;
+      applyTranslation(actionVector);
+      break;
+    case '6': /* right */
+      actionVector.x = transIncrX;
+      actionVector.y = 0;
+      applyTranslation(actionVector);
+      break;
+    case '7': /* up and left  */
+      actionVector.x = -transIncrX;
+      actionVector.y = transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '8': /* up */
+      actionVector.x = 0;
+      actionVector.y = transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '9': /* up and right */
+      actionVector.x = transIncrX;
+      actionVector.y = transIncrY;
+      applyTranslation(actionVector);
+      break;
+    case '=': /* grow the slice */
+    case '+':
+      actionVector.x = scaleIncrX;
+      actionVector.y = scaleIncrY;
+      applyScale(actionVector);
+      break;
+    case '-': /* shrink the slice */
+    case '_':
+      actionVector.x = -scaleIncrX;
+      actionVector.y = -scaleIncrY;
+      applyScale(actionVector);
+      break;
+    default:
+      break;
   }
 }
 
@@ -993,51 +993,51 @@ void alignKeyboard(unsigned char key, int x, int y) {
 void alignMouse(int button, int state, vector mousePos) {
   /* set the sensitivity */
   curSensitivity = GLUT_ACTIVE_CTRL == glutGetModifiers()
-    ? fineSensitivity : coarseSensitivity;
+      ? fineSensitivity : coarseSensitivity;
 
   /* choose action based on button */
   switch(button) {
-  case GLUT_LEFT_BUTTON:
-    /* if we are setting the rotation center, set it and break */
-    if(settingRotCenter == TRUE) {
-      setRotationCenterV(mousePos);
-      if(DEBUG) fprintf(stdout,"current rotation center is (%g,%g)\n",
-			curRotCenter.x, curRotCenter.y);
-      settingRotCenter = FALSE;
-      break;
-    }
+    case GLUT_LEFT_BUTTON:
+      /* if we are setting the rotation center, set it and break */
+      if(settingRotCenter == TRUE) {
+        setRotationCenterV(mousePos);
+        if(DEBUG) fprintf(stdout,"current rotation center is (%g,%g)\n",
+                          curRotCenter.x, curRotCenter.y);
+        settingRotCenter = FALSE;
+        break;
+      }
 
-    /* left button: translation */
-    switch(state) {
-    case GLUT_DOWN:
-      /* translation start */
-      moving = TRUE;
+      /* left button: translation */
+      switch(state) {
+        case GLUT_DOWN:
+          /* translation start */
+          moving = TRUE;
+          break;
+        case GLUT_UP:
+          /* translation end, apply it */
+          moving = FALSE;
+          applyTranslation(curTransAction);
+          curTransAction.x = curTransAction.y = 0;
+          break;
+      }
       break;
-    case GLUT_UP:
-      /* translation end, apply it */
-      moving = FALSE;
-      applyTranslation(curTransAction);
-      curTransAction.x = curTransAction.y = 0;
-      break;
-    }
-    break;
-  case GLUT_MIDDLE_BUTTON: /* rotation */
-    switch(state) {
-    case GLUT_DOWN:
-      /* rotation start */
-      rotating = TRUE;
-      break;
-    case GLUT_UP:
-      /* rotation end, apply rotation  */
-      rotating = FALSE;
+    case GLUT_MIDDLE_BUTTON: /* rotation */
+      switch(state) {
+        case GLUT_DOWN:
+          /* rotation start */
+          rotating = TRUE;
+          break;
+        case GLUT_UP:
+          /* rotation end, apply rotation  */
+          rotating = FALSE;
 
-      applyRotation(curRotCenter, curRotAngle);
+          applyRotation(curRotCenter, curRotAngle);
 
-      /* reset the rot angle */
-      curRotAngle = 0;
+          /* reset the rot angle */
+          curRotAngle = 0;
+          break;
+      }
       break;
-    }
-    break;
   }
 
   /* store the last positions for the up */
@@ -1082,4 +1082,3 @@ void alignMouseMotion(vector mousePos) {
 
   redisplay();
 }
-

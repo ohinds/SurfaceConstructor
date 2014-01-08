@@ -3,7 +3,7 @@
  * reconstruct surfaces from serial sections
  * Oliver Hinds <oph@cns.bu.edu> 2004-02-04
  *
- * 
+ *
  *
  *****************************************************************************/
 
@@ -53,7 +53,7 @@
 #include <unistd.h>
 
 int getopt(int argc, char * const argv[],
-		   const char *optstring);
+           const char *optstring);
 
 extern char *optarg;
 extern int optind, opterr, optopt;
@@ -62,8 +62,8 @@ extern int optind, opterr, optopt;
 #include <getopt.h>
 
 int getopt_long(int argc, char * const argv[],
-				const char *optstring,
-				const struct option *longopts, int *longindex);
+                const char *optstring,
+                const struct option *longopts, int *longindex);
 
 /******************************************************
  * functions
@@ -76,7 +76,7 @@ int getopt_long(int argc, char * const argv[],
  */
 void init(int argc, char **argv);
 
-/** 
+/**
  * initializes dataset
  */
 void datasetInit();
@@ -128,7 +128,7 @@ void redisplay();
 /** event handlers **/
 
 /**
- * blocks forr a key press 
+ * blocks forr a key press
  * NOTE: this will peg your cpu in current implementation
  */
 char blockForKeyPress();

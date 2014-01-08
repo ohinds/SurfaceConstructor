@@ -2,7 +2,7 @@
  * surfConUtil.h is the header file for utility functions for surface recon
  * Oliver Hinds <oph@cns.bu.edu> 2004-02-04
  *
- * 
+ *
  *
  *****************************************************************************/
 
@@ -81,10 +81,10 @@ vector getWorldCoordsV(vector v);
 quadri getWorldCoordsQ(quadri q);
 
 /**
- * build a to world transformation matrix 
+ * build a to world transformation matrix
  */
-void buildToWorldTransform(float A[4][4], enum SLICEDIRECTION dir, 
-			   float B[4][4]);
+void buildToWorldTransform(float A[4][4], enum SLICEDIRECTION dir,
+                           float B[4][4]);
 
 /**
  * copies a list of contours
@@ -123,7 +123,3 @@ int surfaceVerts2WorldCoords(surface *surf, dataset *ds);
 int getTextureMethod();
 
 #endif
-
-
-
-
